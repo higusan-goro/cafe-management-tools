@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="使い方の流れ、ことばのやさしい辞書、こまったときのQ&A。はじめてでも迷わないための案内です。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="はじめての方へ — 三冊の手ほどき">
+<meta property="og:description" content="使い方の流れ、ことばのやさしい辞書、こまったときのQ&A。はじめてでも迷わないための案内です。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe_tool_main/guide.html">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe_tool_main/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>はじめての方へ — 三冊の手ほどき</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F3EF;
+  --ink:#2A2E33;
+  --ink-strong:#1C2024;
+  --green:#2F5D4A;
+  --amber:#A87A2E;
+  --ai:#2C4E77;
+  --shu:#C0392B;
+  --white:#FDFDFC;
+  --shadow:0 1px 3px rgba(42,46,51,.08),0 4px 14px rgba(42,46,51,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);line-height:1.85;
+  background:var(--paper);padding:24px 16px 64px;
+}
+.wrap{max-width:720px;margin:0 auto}
+header{padding:20px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--amber);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,5.6vw,2.1rem);line-height:1.4;color:var(--ink-strong)}
+.lede{font-size:.88rem;color:#5c6167;margin-top:10px;max-width:56ch}
+a.back{font-size:.8rem;color:var(--ai);font-weight:700;text-decoration:none}
+a.back:hover{text-decoration:underline}
+section.card{background:var(--white);border:1px solid #E2E0D8;border-radius:10px;box-shadow:var(--shadow);margin:18px 0;overflow:hidden}
+.card-head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px;border-bottom:2px solid var(--ink)}
+.card-head.g{border-bottom-color:var(--green)}
+.card-head.a{border-bottom-color:var(--amber)}
+.card-head.b{border-bottom-color:var(--ai)}
+.no{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:#8a8f95;letter-spacing:.06em}
+.card-head h2{font-family:'Shippori Mincho',serif;font-size:1.08rem;color:var(--ink-strong)}
+.card-body{padding:16px 18px 20px;font-size:.9rem}
+.card-body p{margin-bottom:10px}
+.card-body p:last-child{margin-bottom:0}
+ol.steps{margin:8px 0 4px;padding-left:0;list-style:none;counter-reset:st}
+ol.steps li{
+  counter-increment:st;position:relative;padding:8px 0 8px 42px;
+  border-bottom:1px dotted #D8D4C8;
+}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{
+  content:counter(st);position:absolute;left:0;top:10px;width:28px;height:28px;
+  border:1.5px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:.8rem;font-weight:600;
+}
+.steps.g li::before{border-color:var(--green);color:var(--green)}
+.steps.a li::before{border-color:var(--amber);color:var(--amber)}
+.steps.b li::before{border-color:var(--ai);color:var(--ai)}
+.steps b{color:var(--ink-strong)}
+dl.dict{margin-top:4px}
+dl.dict dt{
+  font-weight:700;color:var(--ink-strong);margin-top:12px;
+  padding-left:10px;border-left:3px solid var(--amber);
+}
+dl.dict dt .yomi{font-weight:400;font-size:.72rem;color:#8a8f95;margin-left:6px}
+dl.dict dd{margin-left:13px;font-size:.86rem;color:#4a4f55}
+.point{
+  margin:12px 0;padding:10px 14px;background:#F6F3EA;border-left:3px solid var(--amber);
+  border-radius:0 6px 6px 0;font-size:.85rem;
+}
+.point b{color:var(--ink-strong)}
+.qa dt{font-weight:700;color:var(--ink-strong);margin-top:14px}
+.qa dt::before{content:"Q．";color:var(--shu);font-family:'Shippori Mincho',serif}
+.qa dd{margin-top:2px;font-size:.87rem;color:#4a4f55}
+.qa dd::before{content:"A．";color:var(--green);font-weight:700;font-family:'Shippori Mincho',serif}
+a.book-link{
+  display:inline-block;margin-top:10px;padding:9px 16px;font-size:.83rem;font-weight:700;
+  color:#fff;border-radius:6px;text-decoration:none;
+}
+a.book-link.g{background:var(--green)}
+a.book-link.a{background:var(--amber)}
+a.book-link.b{background:var(--ai)}
+a.book-link:focus-visible{outline:3px solid var(--shu);outline-offset:2px}
+footer{margin-top:32px;font-size:.72rem;color:#8a8f95;text-align:center}
+@media print{
+  body{background:#fff}
+  section.card{box-shadow:none;border:1px solid #999;break-inside:avoid}
+  a.book-link,a.back{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">READ ME FIRST</p>
+  <h1>はじめての方へ<br>— 三冊の手ほどき —</h1>
+  <p class="lede">この帳面は、カフェをはじめたい人が「お金の計画」と「お店の考え」を、順番に書き込みながら組み立てるための道具です。経営の勉強をしたことがなくても大丈夫。分からない言葉はこのページに全部書いてあります。まずここを一度読んでから、第一冊を開いてみてください。</p>
+  <p style="margin-top:10px"><a class="back" href="index.html">← 三冊の目次にもどる</a></p>
+</header>
+
+<section class="card">
+  <div class="card-head"><span class="no">その一</span><h2>さきに知っておく3つのこと</h2></div>
+  <div class="card-body">
+    <p><b>① 書いた内容は、あなたの端末の中だけにあります。</b>どこかに送信されたり、他の人に見られたりすることはありません。安心して本当の数字・本当の気持ちを書いてください。</p>
+    <p><b>② そのかわり、画面を閉じると消えます。</b>各帳面の「保存」ボタンを押すと、書いた内容がファイル(JSONという形式)として端末にダウンロードされます。次に開くときは「読込」でそのファイルを選べば、続きから書けます。<b>書き物を終えるときは、必ず保存</b>。これだけ覚えてください。</p>
+    <p><b>③ 完璧を目指さないでください。</b>この帳面は鉛筆書きのようなものです。分からない数字は「たぶんこれくらい」の仮の数字でかまいません。あとから何度でも直せますし、直すたびに全部が自動で計算し直されます。まちがえることが前提の道具です。</p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head"><span class="no">その二</span><h2>三冊の順番と、かかる時間</h2></div>
+  <div class="card-body">
+    <p>三冊は「<b>数字 → 言葉 → 未来</b>」の順に並んでいますが、実は書きやすいのは<b>第二冊(言葉)から</b>です。自分の経歴ややりたいことを言葉にしてから数字に入ると、数字の意味がつかみやすくなります。もちろん第一冊からでも大丈夫です。</p>
+    <p style="margin-top:8px">
+      <b>第二冊 コンセプトワークシート</b>(30分〜1時間)… 自分の棚卸しと、店の考えを言葉に<br>
+      <b>第一冊 経営シミュレーション帳</b>(30分〜1時間)… お金の計画。月にいくら売れて、いくら残るか<br>
+      <b>第三冊 経営デザイン帳</b>(1時間〜)… 少し先の未来。開業してからも毎年使えます
+    </p>
+    <p>一気に仕上げる必要はありません。1冊ずつ、保存しながら進めてください。</p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head"><span class="no">その三</span><h2>ことばの小さな辞書</h2></div>
+  <div class="card-body">
+    <p>帳面に出てくる言葉を、出てくる順にやさしく説明します。分からなくなったらここに戻ってきてください。</p>
+    <dl class="dict">
+      <dt>商圏<span class="yomi">しょうけん</span></dt>
+      <dd>お客さんが来てくれそうな範囲のこと。「店から半径5km圏に何人住んでいるか」のように使います。国の無料サービス(jSTAT MAP)で調べられます。</dd>
+      <dt>客単価<span class="yomi">きゃくたんか</span></dt>
+      <dd>お客さん1人が1回に使ってくれる金額の平均。コーヒー500円＋ケーキ400円なら客単価900円。</dd>
+      <dt>満席率<span class="yomi">まんせきりつ</span></dt>
+      <dd>席がどれくらい埋まっているかの平均。17席の店で平均8〜9人座っているなら約50%。</dd>
+      <dt>回転数<span class="yomi">かいてんすう</span></dt>
+      <dd>1つの席が1日に何回使われるか。お客さんの入れ替わりの回数です。ゆっくり過ごす喫茶店なら1日2〜3回転くらい。</dd>
+      <dt>月商<span class="yomi">げっしょう</span></dt>
+      <dd>1ヶ月の売上の合計。この帳面では「客単価 × 客数 × 営業日数」で自動計算されます。</dd>
+      <dt>原価率<span class="yomi">げんかりつ</span></dt>
+      <dd>売上のうち、材料代(豆・牛乳・小麦粉など)が占める割合。喫茶店なら25〜35%くらいが目安。900円売って材料代が270円なら原価率30%です。</dd>
+      <dt>経費<span class="yomi">けいひ</span></dt>
+      <dd>材料代以外の、毎月出ていくお金。家賃・電気代・通信費など。<b>自分(店主)の生活費はここに入れない</b>のがルールです(あとで出てくる「手残り」から取ります)。</dd>
+      <dt>利益<span class="yomi">りえき</span></dt>
+      <dd>売上から材料代と経費を引いて残るお金。「売上 − 原価 − 経費 ＝ 利益」。これがプラスなら黒字、マイナスなら赤字です。</dd>
+      <dt>損益分岐点<span class="yomi">そんえきぶんきてん</span></dt>
+      <dd>「月にこれだけ売れれば赤字にならない」という境目の売上額。自分の店の合格ラインだと思ってください。帳面が自動で計算します。</dd>
+      <dt>元金と利息<span class="yomi">がんきん・りそく</span></dt>
+      <dd>お金を借りたとき、借りたお金そのものが「元金」、借り賃として上乗せして払うのが「利息」。毎月の返済額はこの2つの合計です。</dd>
+      <dt>手残り<span class="yomi">てのこり</span></dt>
+      <dd>利益から毎月の借金返済を払って、最後に手元に残るお金。<b>ここから自分の生活費を出します</b>。この帳面でいちばん大事な数字です。黒字でも手残りが生活費より少なければ、暮らしが成り立ちません。</dd>
+      <dt>SWOT<span class="yomi">スウォット</span></dt>
+      <dd>自分の店を「強み・弱み・機会(追い風)・脅威(向かい風)」の4つの箱で整理するやり方。持ち札の在庫表のようなものです。</dd>
+      <dt>MVV<span class="yomi">ミッション・ビジョン・バリュー</span></dt>
+      <dd>ミッション＝店は何のためにあるのか。ビジョン＝10年後どうなっていたいか。バリュー＝迷ったときの判断基準。店の背骨になる3つの言葉です。</dd>
+      <dt>ビジネスモデルキャンバス</dt>
+      <dd>店の商売のしくみを9つの箱で1枚にまとめる世界共通の書式。「誰に・何を・どうやって届けて・どこで儲けるか」が一目で見えるようになります。</dd>
+      <dt>経営デザインシート</dt>
+      <dd>内閣府が公開している「これまで → これから」を見比べる書式。開業前の人は「これまで」に自分の経歴を書けばOK。開業後は毎年の棚卸しに使えます。</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head g"><span class="no">その四</span><h2>第一冊「経営シミュレーション帳」の歩き方</h2></div>
+  <div class="card-body">
+    <p>数字を打ち込むと、月商・利益・手残りが全部自動で計算される帳面です。<b>自分で入力するのは白い枠だけ</b>。計算結果は触れないようになっているので、壊す心配はありません。上から順に進みます。</p>
+    <ol class="steps g">
+      <li><b>商圏</b>：出店したい場所を書き、「jSTAT MAPを開く」ボタンで人口を調べて数字を写します。まだ場所が決まっていなければ、飛ばしてOK。</li>
+      <li><b>売上計画</b>：席数・満席率・回転数・客単価を入れます。平日と土日祝は別々に入れられます。自信がなければまず「平日は席の半分弱、土日は7割」くらいの仮置きで。</li>
+      <li><b>原価と経費</b>：原価率(迷ったら30%)と、家賃などの毎月の経費を入れます。</li>
+      <li><b>必要な資金と調達</b>：開業に必要なお金(内装・機材・当面の運転資金)と、その出どころ(自己資金・借入)を入れます。左右の合計が一致すると「一致しています」と出ます。</li>
+      <li><b>借入返済</b>：借りたい額と年数を入れると、毎月の返済額が出ます。</li>
+      <li><b>事業の見通し</b>：ここは見る場所です。黒字/赤字のスタンプ、損益分岐点、そして<b>手残りが生活費に足りるか</b>の判定が出ます。足りなければ、上に戻って数字を動かしてみてください。どこを動かすと何が変わるか、体で覚えるのがこの帳面の使い方です。</li>
+      <li><b>「根拠の文章をコピー」</b>ボタンを押すと、「席数◯席×満席率◯%×…」という計算の説明文ができます。これは日本政策金融公庫(国の金融機関)に出す創業計画書に、そのまま貼れる形になっています。</li>
+      <li>最後に画面下の<b>「保存」</b>を忘れずに。</li>
+    </ol>
+    <div class="point"><b>コツ：</b>最初の数字は当てずっぽうで大丈夫です。大事なのは「客単価を100円上げたら手残りがいくら変わるか」を自分の目で見ること。それがそのまま経営の練習になります。</div>
+    <a class="book-link g" href="simulation.html">第一冊をひらく →</a>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head a"><span class="no">その五</span><h2>第二冊「コンセプトワークシート」の歩き方</h2></div>
+  <div class="card-body">
+    <p>数字ではなく言葉の帳面です。正解はないので、思いつくまま書いてください。書いた言葉は自動で「創業計画書の下書き」に組み上がります。</p>
+    <ol class="steps a">
+      <li><b>自分の棚卸し</b>：これまでの仕事の経歴と、そこで身についたことを表に書きます。カフェと関係ない仕事(営業・事務・工場…)も全部書いてください。あとで必ずつながります。</li>
+      <li><b>創業の動機</b>：「なぜカフェか」「なぜこの街か」など4つの問いに、話し言葉でいいので答えます。</li>
+      <li><b>SWOT</b>：強み・弱み・追い風・向かい風を箇条書きで。強みが思いつかないときは、人に褒められたことを思い出すのが近道です。</li>
+      <li><b>コンセプト</b>：「誰に・何を・どのように」の3つに答えると、ひとことコンセプトの下書きが自動でできます。最後は自分の言葉で仕上げてください。</li>
+      <li><b>セールスポイント</b>：近くのお店と見比べて、自分の店が選ばれる理由を3つまで。</li>
+      <li>いちばん下に、ここまでの内容から<b>創業計画書の下書き(動機・略歴・商品サービス)</b>が自動で組み上がっています。コピーして使えます。</li>
+      <li>画面下の<b>「保存」</b>を忘れずに。このファイルは第三冊にも引き継げます。</li>
+    </ol>
+    <div class="point"><b>コツ：</b>かっこいい言葉を探さないこと。「近所の人がコーヒーでひと息つける店」のような普通の言葉のほうが、計画書としては強いです。</div>
+    <a class="book-link a" href="concept.html">第二冊をひらく →</a>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head b"><span class="no">その六</span><h2>第三冊「経営デザイン帳」の歩き方</h2></div>
+  <div class="card-body">
+    <p>少し先の未来を描く帳面です。開業前に全部埋める必要はありません。開業してから毎年書き足していく、いちばん息の長い一冊です。</p>
+    <ol class="steps b">
+      <li>まず<b>「読込」で第二冊の保存ファイルを開いて</b>ください。コンセプトや強みが自動で引き継がれ、途中まで埋まった状態から始められます。</li>
+      <li><b>MVV</b>：店の背骨になる3つの言葉。第二冊のコンセプトを膨らませる感覚で。</li>
+      <li><b>ビジネスモデルキャンバス</b>：9つの箱。真ん中の「提供価値」から書き、右(お客さん側)→左(つくる側)の順が書きやすいです。</li>
+      <li><b>経営デザインシート</b>：「これまで」に自分の経歴、「これから」に目指す姿を。間の「移行戦略」には、今から半年でやる小さな一歩を書きます。</li>
+      <li><b>定点観測</b>：年に一度、同じ問いに答える欄です。開業前に書いた答えと、1年後・5年後の答えを並べると、自分の店の歴史がそのまま残ります。<b>年ごとに別の名前で保存</b>してください。</li>
+    </ol>
+    <div class="point"><b>コツ：</b>この帳面は「提出するため」ではなく「自分が迷わないため」のもの。年1回、大掃除のように開く習慣がつくと、10年もちます。</div>
+    <a class="book-link b" href="design.html">第三冊をひらく →</a>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head"><span class="no">その七</span><h2>こまったときは</h2></div>
+  <div class="card-body">
+    <dl class="qa">
+      <dt>数字がぜんぜん分かりません。</dt>
+      <dd>仮の数字でかまいません。最初から入っているサンプルの数字(17席・客単価900円など)を眺めて、「自分の店ならここが違うな」と思うところから直していくのが一番簡単です。</dd>
+      <dt>書いたものが消えてしまいました。</dt>
+      <dd>保存していない内容は、画面を閉じたり再読み込みしたりすると戻せません。ごめんなさい。次からは、区切りごとに「保存」を押す習慣を。保存したファイルさえあれば、何度でも「読込」で復元できます。</dd>
+      <dt>保存したファイルはどこにありますか？</dt>
+      <dd>スマホもパソコンも、ふつうは「ダウンロード」フォルダに入っています。「経営シミュレーション_日付.json」のような名前です。分かりやすい場所に移して、名前を「自分の店_1回目」などに変えてもOKです。</dd>
+      <dt>スマホでも使えますか？</dt>
+      <dd>使えます。このページと同じアドレス(QRコード)から、スマホ・タブレット・パソコンのどれでも開けます。長い文章を書く第二冊・第三冊はパソコンのほうが楽かもしれません。</dd>
+      <dt>紙で持っていきたいのですが。</dt>
+      <dd>ブラウザの「印刷」(パソコンならCtrl+P)で、ボタンなどが消えたきれいな形で印刷できます。プリンターの代わりに「PDFに保存」を選べば、PDFファイルにもなります。</dd>
+      <dt>書いたものを誰かに見てもらいたい。</dt>
+      <dd>各都道府県にある「よろず支援拠点」という無料の経営相談窓口で、計画を見てもらえます。印刷して持っていくか、PDFにして見せてください。日本政策金融公庫の窓口でも、申し込み前の相談ができます。</dd>
+      <dt>これを埋めれば融資は通りますか？</dt>
+      <dd>この帳面は考えを整理するための道具で、通ることを約束するものではありません。ただ、「数字に根拠があり、動機が自分の言葉で書けている」計画は、確実に伝わりやすくなります。その状態まで一緒に持っていくのが、この三冊の役目です。</dd>
+    </dl>
+  </div>
+</section>
+
+<footer>喫茶開業の帳面 三冊 — 手ほどき ／ 数値・制度は目安です。正式な条件は日本政策金融公庫等でご確認ください。</footer>
+</div>
+</body>
+</html>

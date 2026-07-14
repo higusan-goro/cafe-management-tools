@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="経歴の棚卸し・創業の動機・SWOT・コンセプトづくり。書き込むと創業計画書の下書きが自動で組み上がります。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="コンセプトワークシート | 喫茶開業の帳面">
+<meta property="og:description" content="経歴の棚卸し・創業の動機・SWOT・コンセプトづくり。書き込むと創業計画書の下書きが自動で組み上がります。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe_tool_main/concept.html">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe_tool_main/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>喫茶開業 コンセプトワークシート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F4EE;
+  --grid:#E4E0D3;
+  --ink:#3A3226;          /* セピアの万年筆インク */
+  --ink-strong:#28221A;
+  --green:#2F5D4A;
+  --shu:#C0392B;
+  --amber:#A87A2E;
+  --white:#FDFDFB;
+  --shadow:0 1px 3px rgba(58,50,38,.08),0 4px 14px rgba(58,50,38,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  background:var(--paper);
+  background-image:repeating-linear-gradient(transparent,transparent 27px,var(--grid) 27px,var(--grid) 28px);
+  color:var(--ink);line-height:1.75;padding-bottom:80px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 18px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--amber);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,5.4vw,2.1rem);color:var(--ink-strong);line-height:1.35}
+h1 .accent{color:var(--amber)}
+.lede{font-size:.86rem;color:#6b6152;margin-top:10px;max-width:60ch}
+section.card{background:var(--white);border:1px solid #E8E3D6;border-radius:10px;box-shadow:var(--shadow);margin:18px 0;overflow:hidden}
+.card-head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px;border-bottom:2px solid var(--amber)}
+.acct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--green);letter-spacing:.06em}
+.card-head h2{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--ink-strong)}
+.card-body{padding:16px 18px 20px}
+.hint{font-size:.78rem;color:#6b6152;margin-bottom:12px}
+.q{margin-bottom:14px}
+.q label{display:block;font-size:.8rem;font-weight:700;color:#4a4133;margin-bottom:4px}
+.q .sub{font-weight:400;color:#8a7f6c;font-size:.72rem}
+textarea,input[type=text]{
+  width:100%;padding:9px 10px;font-size:.92rem;border:1px solid #D4CCB8;border-radius:6px;
+  background:#FCFBF7;color:var(--ink-strong);font-family:inherit;line-height:1.65;
+}
+textarea{min-height:64px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.swot-cell{border:1.5px solid var(--ink);border-radius:8px;padding:10px;background:#FCFBF7}
+.swot-cell.s{border-color:var(--green)}
+.swot-cell.w{border-color:var(--shu)}
+.swot-cell.o{border-color:var(--amber)}
+.swot-cell.t{border-color:#5B6C8F}
+.swot-cell h3{font-family:'Shippori Mincho',serif;font-size:.9rem;margin-bottom:2px}
+.swot-cell .en{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#8a7f6c;letter-spacing:.1em}
+.swot-cell textarea{border:none;background:transparent;padding:4px 0;min-height:88px}
+.swot-cell textarea:focus{outline:none;background:#fff}
+table.career{width:100%;border-collapse:collapse;font-size:.85rem}
+table.career th{font-size:.72rem;font-weight:700;color:#4a4133;text-align:left;padding:6px 4px;border-bottom:2px solid var(--amber)}
+table.career td{padding:5px 4px;border-bottom:1px dotted #D4CCB8;vertical-align:top}
+table.career input{padding:6px 8px;font-size:.83rem}
+.compose{
+  margin-top:14px;padding:12px 14px;background:#F6F2E7;border-left:3px solid var(--amber);
+  border-radius:0 6px 6px 0;font-size:.85rem;
+}
+.compose .k{font-size:.72rem;font-weight:700;color:var(--amber);letter-spacing:.1em;margin-bottom:4px}
+.preview{
+  white-space:pre-wrap;background:#FCFBF7;border:1px dashed #C9BFA6;border-radius:6px;
+  padding:12px;font-size:.83rem;margin-top:8px;min-height:60px;
+}
+button.action{
+  padding:10px 16px;font-size:.85rem;font-weight:700;border:none;border-radius:6px;
+  background:var(--green);color:#fff;cursor:pointer;font-family:inherit;margin-top:10px;margin-right:8px;
+}
+button.action.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+button:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+.note{font-size:.72rem;color:#8a7f6c;margin-top:8px}
+.savebar{
+  position:fixed;left:0;right:0;bottom:0;background:var(--ink-strong);z-index:50;
+  box-shadow:0 -3px 12px rgba(0,0,0,.18);
+}
+.savebar .inner{max-width:760px;margin:0 auto;display:flex;gap:8px;padding:10px 16px;align-items:center;flex-wrap:wrap}
+.savebar button,.savebar label.file{
+  padding:8px 14px;font-size:.78rem;font-weight:700;border:none;border-radius:6px;cursor:pointer;
+  font-family:inherit;background:var(--amber);color:#fff;
+}
+.savebar label.file{background:transparent;color:#EADFC8;border:1.5px solid #EADFC8;display:inline-block}
+.savebar .msg{font-size:.72rem;color:#CBBFA5;flex:1;min-width:120px}
+footer{margin:36px 0 8px;font-size:.7rem;color:#8a7f6c;text-align:center}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  .savebar,button.action{display:none!important}
+  section.card{box-shadow:none;border:1px solid #999;break-inside:avoid;margin:12px 0}
+  textarea,input[type=text]{border:none;border-bottom:1px solid #999;border-radius:0;background:#fff;overflow:hidden}
+  .swot-cell textarea{border-bottom:none}
+  .preview{border:1px solid #999}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">CAFÉ CONCEPT WORKSHEET</p>
+  <h1>喫茶開業 <span class="accent">コンセプトワークシート</span></h1>
+  <p class="lede">数字の前に、言葉を整える帳面です。自分の棚卸し、店の分析、コンセプトづくりを順に書き込むと、創業計画書の「創業の動機」「経営者の略歴等」「取扱商品・サービス」にそのまま貼れる下書きが自動で組み上がります。書いた内容はページを閉じると消えるので、下の保存ボタンでこまめに書き出してください。</p>
+  <p style="margin-top:10px"><button class="action ghost" onclick="loadSample()">記入例を読み込む（架空のモデルケース）</button></p>
+  <span class="note" id="sampleMsg" style="display:block"></span>
+</header>
+
+<!-- 010 経歴の棚卸し -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.010</span><h2>自分の棚卸し（経歴とスキル）</h2></div>
+  <div class="card-body">
+    <p class="hint">創業計画書「2 経営者の略歴等」の材料です。勤務先名だけでなく「そこで何を担当し、何が身についたか」まで書くのがコツ。カフェと関係なさそうな経験（営業・経理・企画など）も、店の経営には全部つながります。</p>
+    <table class="career">
+      <thead><tr><th style="width:22%">時期</th><th style="width:39%">どこで・何をしたか</th><th style="width:39%">得たこと・開業への活かし方</th></tr></thead>
+      <tbody id="careerBody"></tbody>
+    </table>
+    <div class="q" style="margin-top:14px">
+      <label>資格・受講・表彰など <span class="sub">（例：食品衛生責任者、コーヒー関連の修行歴・セミナーなど）</span></label>
+      <textarea data-k="quals" rows="2"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- 020 創業の動機 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.020</span><h2>創業の動機を言葉にする</h2></div>
+  <div class="card-body">
+    <p class="hint">創業計画書「1 創業の動機」の材料です。4つの問いに短く答えるだけで、動機の文章の骨組みができます。熱意と計画性の両方が伝わるように、「思い」と「やってきた準備」をセットで。</p>
+    <div class="q"><label>① なぜカフェ（喫茶店）なのか</label><textarea data-k="m1" placeholder="例）コーヒーと人が集まる場が好きで、◯年関わってきたから"></textarea></div>
+    <div class="q"><label>② なぜこの場所・この街なのか</label><textarea data-k="m2" placeholder="例）商店街に日常的に立ち寄れる店が減っており、地元の人の居場所が必要だと感じたから"></textarea></div>
+    <div class="q"><label>③ なぜ今なのか・どんな準備をしてきたか</label><textarea data-k="m3" placeholder="例）◯年の修行と自己資金◯円の準備が整い、物件の目処も立ったため"></textarea></div>
+    <div class="q"><label>④ 開業して実現したいこと</label><textarea data-k="m4" placeholder="例）地域の人が毎日立ち寄れる場をつくり、街のにぎわいに貢献したい"></textarea></div>
+  </div>
+</section>
+
+<!-- 030 SWOT -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.030</span><h2>自社（自分の店）の分析 — SWOT</h2></div>
+  <div class="card-body">
+    <p class="hint">内側（強み・弱み）と外側（機会・脅威）を4つの箱で整理します。箇条書きでOK。「強み」は自分では当たり前すぎて気づきにくいので、お客さんや友人に言われたことを思い出すのが近道です。</p>
+    <div class="grid2">
+      <div class="swot-cell s"><h3>強み <span class="en">STRENGTH</span></h3><textarea data-k="sw_s" placeholder="例）自家焙煎の技術／接客経験／立地"></textarea></div>
+      <div class="swot-cell w"><h3>弱み <span class="en">WEAKNESS</span></h3><textarea data-k="sw_w" placeholder="例）経営経験がない／資金に余裕がない／一人営業"></textarea></div>
+      <div class="swot-cell o"><h3>機会 <span class="en">OPPORTUNITY</span></h3><textarea data-k="sw_o" placeholder="例）近隣にカフェが少ない／イベント需要／観光客の増加"></textarea></div>
+      <div class="swot-cell t"><h3>脅威 <span class="en">THREAT</span></h3><textarea data-k="sw_t" placeholder="例）チェーン店の出店／原材料の高騰／人口減少"></textarea></div>
+    </div>
+    <div class="q" style="margin-top:14px"><label>攻めの一手 <span class="sub">強み × 機会：強みを機会にどうぶつけるか</span></label><textarea data-k="sw_so" rows="2" placeholder="例）自家焙煎を看板に、カフェ空白地帯で豆売りも展開する"></textarea></div>
+    <div class="q"><label>守りの一手 <span class="sub">弱み × 脅威：弱点をどう補うか</span></label><textarea data-k="sw_wt" rows="2" placeholder="例）一人営業の限界はイベント時の助っ人体制と予約制で補う"></textarea></div>
+  </div>
+</section>
+
+<!-- 040 コンセプト -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.040</span><h2>コンセプトづくり — 誰に・何を・どのように</h2></div>
+  <div class="card-body">
+    <p class="hint">コンセプトは飾り文句ではなく、迷ったときの判断基準です。3つの問いが具体的なほど、メニューも内装も価格も決めやすくなります。</p>
+    <div class="q"><label>誰に <span class="sub">ターゲットと利用シーン。「30代女性」より「仕事帰りに一人で一息つきたい人」のように場面で</span></label><textarea data-k="c_who" placeholder="例）近所に住む・働く人が、一人でも気兼ねなく過ごしたいとき"></textarea></div>
+    <div class="q"><label>何を <span class="sub">商品と、その奥にある価値</span></label><textarea data-k="c_what" placeholder="例）自家焙煎コーヒーと手づくりケーキ。あわせて「肩の力が抜ける時間」"></textarea></div>
+    <div class="q"><label>どのように <span class="sub">提供方法・空間・価格帯・営業スタイル</span></label><textarea data-k="c_how" placeholder="例）17席の落ち着いた空間で、1杯ずつ丁寧に。客単価900円前後"></textarea></div>
+    <div class="compose">
+      <div class="k">ひとことコンセプトの下書き（自動生成）</div>
+      <div id="conceptDraft" style="font-family:'Shippori Mincho',serif"></div>
+    </div>
+    <div class="q" style="margin-top:12px"><label>ひとことコンセプト（自分の言葉で仕上げる）</label><input type="text" data-k="c_final" placeholder="例）街の日常に、自家焙煎の一杯を。"></div>
+  </div>
+</section>
+
+<!-- 050 セールスポイント -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.050</span><h2>セールスポイントと競合との違い</h2></div>
+  <div class="card-body">
+    <p class="hint">創業計画書「3 取扱商品・サービス」のセールスポイント欄の材料です。近くの店を実際に見て回り、「あちらはこう、うちはこう」と対で書けると説得力が出ます。</p>
+    <div class="q"><label>近隣の競合店とその特徴</label><textarea data-k="rival" placeholder="例）駅前にチェーンカフェ2店（回転重視・全席禁煙）、個人店は徒歩10分圏に1店"></textarea></div>
+    <div class="q"><label>セールスポイント ①</label><input type="text" data-k="sp1" placeholder="例）店内焙煎の鮮度の高いコーヒー"></div>
+    <div class="q"><label>セールスポイント ②</label><input type="text" data-k="sp2" placeholder="例）毎日焼く手づくりケーキ"></div>
+    <div class="q"><label>セールスポイント ③</label><input type="text" data-k="sp3" placeholder="例）月◯回のイベントによる継続的な来店動機"></div>
+    <div class="q"><label>競合との違いを一文で</label><textarea data-k="diff" rows="2" placeholder="例）チェーン店が「速さと均質さ」なら、当店は「顔の見える一杯と居場所」で差別化する"></textarea></div>
+  </div>
+</section>
+
+<!-- 060 出力 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.060</span><h2>創業計画書への下書き（自動組み立て）</h2></div>
+  <div class="card-body">
+    <p class="hint">ここまでの記入から、計画書の各欄に貼れる下書きを組み立てます。あくまで骨組みなので、貼ったあとに自分の言葉で整えてください。</p>
+    <div class="q"><label>「1 創業の動機」の下書き</label><div class="preview" id="outMotive"></div><button class="action" onclick="copyOut('outMotive')">この下書きをコピー</button></div>
+    <div class="q" style="margin-top:20px"><label>「2 経営者の略歴等」の下書き</label><div class="preview" id="outCareer"></div><button class="action" onclick="copyOut('outCareer')">この下書きをコピー</button></div>
+    <div class="q" style="margin-top:20px"><label>「3 取扱商品・サービス（セールスポイント）」の下書き</label><div class="preview" id="outConcept"></div><button class="action" onclick="copyOut('outConcept')">この下書きをコピー</button></div>
+    <p class="note" id="copyNote"></p>
+  </div>
+</section>
+
+<footer>このワークシートは下書きづくりの道具です。提出前によろず支援拠点や公庫の窓口で内容を見てもらうと安心です。</footer>
+</div>
+
+<div class="savebar">
+  <div class="inner">
+    <button onclick="saveJSON()">保存（ファイルに書き出し）</button>
+    <label class="file">読み込み<input type="file" id="loadFile" accept=".json" style="display:none"></label>
+    <button onclick="copyAll()" style="background:transparent;border:1.5px solid #EADFC8;color:#EADFC8">全文コピー</button>
+    <span class="msg" id="saveMsg">※ページを閉じると内容は消えます</span>
+  </div>
+</div>
+
+<script>
+// 経歴テーブル 5行
+const careerBody = document.getElementById('careerBody');
+for(let i=0;i<5;i++){
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="text" data-k="cr_when${i}" placeholder="20XX年〜"></td>
+  <td><input type="text" data-k="cr_what${i}" placeholder="◯◯株式会社 営業職 など"></td>
+  <td><input type="text" data-k="cr_gain${i}" placeholder="法人営業・接客の経験 → 常連づくりに活かす"></td>`;
+  careerBody.appendChild(tr);
+}
+
+const v = k => { const el = document.querySelector(`[data-k="${k}"]`); return el ? el.value.trim() : ''; };
+const line = (label, val) => val ? `${label}${val}\n` : '';
+
+function build(){
+  // ひとことコンセプト下書き
+  const who=v('c_who'), what=v('c_what'), how=v('c_how');
+  document.getElementById('conceptDraft').textContent =
+    (who||what||how)
+    ? `「${who||'（誰に）'}」のために、「${what||'（何を）'}」を、「${how||'（どのように）'}」届ける店。`
+    : '上の3つを書くと、ここに下書きが現れます。';
+
+  // 創業の動機
+  let motive = '';
+  motive += line('', v('m1'));
+  motive += line('', v('m2'));
+  motive += line('', v('m3'));
+  motive += line('', v('m4'));
+  document.getElementById('outMotive').textContent =
+    motive.trim() || '「創業の動機」の4つの問いに答えると、ここに下書きができます。';
+
+  // 経営者の略歴等
+  let career = '';
+  for(let i=0;i<5;i++){
+    const w=v(`cr_when${i}`), x=v(`cr_what${i}`), g=v(`cr_gain${i}`);
+    if(w||x||g) career += `・${w}　${x}${g ? `（${g}）` : ''}\n`;
+  }
+  if(v('quals')) career += `\n【資格・受講等】\n${v('quals')}\n`;
+  document.getElementById('outCareer').textContent =
+    career.trim() || '経歴の棚卸しを書くと、ここに下書きができます。';
+
+  // 取扱商品・サービス
+  let cpt = '';
+  if(v('c_final')) cpt += `【コンセプト】${v('c_final')}\n`;
+  cpt += line('【ターゲット・利用シーン】', who);
+  cpt += line('【取扱商品・サービス】', what);
+  cpt += line('【提供方法】', how);
+  const sps=[v('sp1'),v('sp2'),v('sp3')].filter(Boolean);
+  if(sps.length) cpt += `【セールスポイント】\n${sps.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n`;
+  cpt += line('【競合との違い】', v('diff'));
+  document.getElementById('outConcept').textContent =
+    cpt.trim() || 'コンセプトとセールスポイントを書くと、ここに下書きができます。';
+}
+
+function copyOut(id){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    document.getElementById('copyNote').textContent = '下書きをコピーしました。創業計画書に貼り付けて、自分の言葉で仕上げてください。';
+  }).catch(()=>{ document.getElementById('copyNote').textContent = 'コピーできない環境のようです。下書きを長押し（または選択）してコピーしてください。'; });
+}
+
+function collect(){
+  const data = {};
+  document.querySelectorAll('[data-k]').forEach(el=>{ data[el.dataset.k] = el.value; });
+  return data;
+}
+function saveJSON(){
+  const blob = new Blob([JSON.stringify({type:'cafe-concept-worksheet',saved:new Date().toISOString(),data:collect()},null,1)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `コンセプトワークシート_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  document.getElementById('saveMsg').textContent = '書き出しました。次回は「読み込み」でこのファイルを開けば続きから書けます。';
+}
+function applyData(data){
+  document.querySelectorAll('[data-k]').forEach(el=>{ if(data[el.dataset.k]!==undefined) el.value = data[el.dataset.k]; });
+  build();
+}
+document.getElementById('loadFile').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const obj = JSON.parse(reader.result);
+      applyData(obj.data || obj);
+      document.getElementById('saveMsg').textContent = '読み込みました。';
+    }catch(err){ document.getElementById('saveMsg').textContent = '読み込めませんでした。保存したJSONファイルか確認してください。'; }
+  };
+  reader.readAsText(f);
+});
+function loadSample(){
+  const msg = document.getElementById('sampleMsg');
+  fetch('sample-concept.json')
+    .then(r=>{ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(obj=>{
+      applyData(obj.data || obj);
+      msg.textContent = '記入例（架空のモデルケース：チェーン店長からの独立）を読み込みました。読みものとして眺めてから、自分の言葉に書き換えてみてください。';
+    })
+    .catch(()=>{ msg.textContent = '記入例を読み込めませんでした。公開サイト上で開いているか確認してください。'; });
+}
+function copyAll(){
+  const t = ['outMotive','outCareer','outConcept'].map(id=>document.getElementById(id).textContent).join('\n\n――――――\n\n');
+  navigator.clipboard.writeText(t).then(()=>{ document.getElementById('saveMsg').textContent = '3つの下書きをまとめてコピーしました。'; });
+}
+
+document.querySelectorAll('[data-k]').forEach(el=>el.addEventListener('input', build));
+
+// 印刷時にテキスト欄を全文表示に広げる
+window.addEventListener('beforeprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.dataset.h = t.style.height||''; t.style.height='auto'; t.style.height=Math.max(t.scrollHeight, 40)+'px'; });
+});
+window.addEventListener('afterprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.style.height = t.dataset.h; });
+});
+build();
+</script>
+</body>
+</html>

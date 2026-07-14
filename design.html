@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MVV・ビジネスモデルキャンバス・内閣府の経営デザインシート・年に一度の定点観測。開業前から何年目でも。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="経営デザイン帳 | 喫茶開業の帳面">
+<meta property="og:description" content="MVV・ビジネスモデルキャンバス・内閣府の経営デザインシート・年に一度の定点観測。開業前から何年目でも。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe_tool_main/design.html">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe_tool_main/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>カフェの経営デザイン帳 — MVV・BMC・経営デザインシート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F4F7;
+  --grid:#DDE4EA;
+  --ink:#23303E;
+  --ink-strong:#17222E;
+  --ai:#2C4E77;          /* 藍 = これから */
+  --sepia:#8A6B3D;       /* セピア = これまで */
+  --green:#2F5D4A;
+  --shu:#C0392B;
+  --white:#FDFEFE;
+  --shadow:0 1px 3px rgba(35,48,62,.08),0 4px 14px rgba(35,48,62,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);line-height:1.75;
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;padding-bottom:84px;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 18px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--ai);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,5.2vw,2.1rem);color:var(--ink-strong);line-height:1.35}
+h1 .accent{color:var(--ai)}
+.lede{font-size:.86rem;color:#4f6172;margin-top:10px;max-width:62ch}
+section.card{background:var(--white);border:1px solid #E0E7ED;border-radius:10px;box-shadow:var(--shadow);margin:18px 0;overflow:hidden}
+.card-head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px;border-bottom:2px solid var(--ai)}
+.acct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--sepia);letter-spacing:.06em}
+.card-head h2{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--ink-strong)}
+.card-body{padding:16px 18px 20px}
+.hint{font-size:.78rem;color:#4f6172;margin-bottom:12px}
+.hint a{color:var(--ai)}
+.q{margin-bottom:14px}
+.q label{display:block;font-size:.8rem;font-weight:700;color:#33465a;margin-bottom:4px}
+.q .sub{font-weight:400;color:#7d8fa0;font-size:.72rem}
+textarea,input[type=text]{
+  width:100%;padding:9px 10px;font-size:.92rem;border:1px solid #C4D0DB;border-radius:6px;
+  background:#FBFCFD;color:var(--ink-strong);font-family:inherit;line-height:1.65;
+}
+textarea{min-height:60px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--ai);outline-offset:1px}
+.compose{margin-top:12px;padding:12px 14px;background:#EEF3F8;border-left:3px solid var(--ai);border-radius:0 6px 6px 0;font-size:.85rem}
+.compose .k{font-size:.72rem;font-weight:700;color:var(--ai);letter-spacing:.1em;margin-bottom:4px}
+.preview{white-space:pre-wrap;background:#FBFCFD;border:1px dashed #AEC0D0;border-radius:6px;padding:12px;font-size:.83rem;margin-top:8px;min-height:60px}
+button.action{padding:10px 16px;font-size:.85rem;font-weight:700;border:none;border-radius:6px;background:var(--ai);color:#fff;cursor:pointer;font-family:inherit;margin-top:10px;margin-right:8px}
+button.action.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+button:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+.note{font-size:.72rem;color:#7d8fa0;margin-top:8px}
+/* BMC */
+.bmc{display:grid;gap:8px;grid-template-columns:repeat(10,1fr);grid-template-areas:
+  "kp kp ka ka vp vp cr cr cs cs"
+  "kp kp kr kr vp vp ch ch cs cs"
+  "cost cost cost cost cost rev rev rev rev rev";}
+@media(max-width:680px){
+  .bmc{grid-template-columns:1fr;grid-template-areas:"vp" "cs" "ch" "cr" "rev" "kr" "ka" "kp" "cost";}
+}
+.bmc .cell{border:1.5px solid #B9C8D6;border-radius:8px;background:#FBFCFD;padding:8px 10px;display:flex;flex-direction:column}
+.bmc .cell h3{font-size:.78rem;font-family:'Shippori Mincho',serif;color:var(--ink-strong)}
+.bmc .cell .en{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:#8a9aa9;letter-spacing:.08em;margin-bottom:4px}
+.bmc .cell textarea{border:none;background:transparent;padding:2px 0;min-height:84px;font-size:.83rem;flex:1}
+.bmc .cell textarea:focus{outline:none;background:#fff}
+.bmc .cell.vp{border-color:var(--ai);border-width:2px;background:#F2F6FB}
+.bmc .cell.money{border-color:var(--green)}
+/* 経営デザインシート */
+.mds-flow{display:grid;gap:10px;grid-template-columns:1fr 40px 1fr;align-items:stretch}
+@media(max-width:680px){.mds-flow{grid-template-columns:1fr}.mds-arrow{transform:rotate(90deg);margin:-2px auto}}
+.mds-col{border:1.5px solid;border-radius:10px;padding:12px;background:#FBFCFD}
+.mds-col.past{border-color:var(--sepia)}
+.mds-col.future{border-color:var(--ai);background:#F2F6FB}
+.mds-col h3{font-family:'Shippori Mincho',serif;font-size:.95rem;margin-bottom:2px}
+.mds-col.past h3{color:var(--sepia)}
+.mds-col.future h3{color:var(--ai)}
+.mds-col .sub{font-size:.7rem;color:#7d8fa0;margin-bottom:8px;display:block}
+.mds-arrow{display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--ink);font-family:'Shippori Mincho',serif}
+.mds-band{border:1.5px solid var(--shu);border-radius:10px;padding:12px;background:#FDF7F5;margin-top:10px}
+.mds-band h3{font-family:'Shippori Mincho',serif;font-size:.95rem;color:var(--shu);margin-bottom:2px}
+.savebar{position:fixed;left:0;right:0;bottom:0;background:var(--ink-strong);z-index:50;box-shadow:0 -3px 12px rgba(0,0,0,.18)}
+.savebar .inner{max-width:820px;margin:0 auto;display:flex;gap:8px;padding:10px 16px;align-items:center;flex-wrap:wrap}
+.savebar button,.savebar label.file{padding:8px 14px;font-size:.78rem;font-weight:700;border:none;border-radius:6px;cursor:pointer;font-family:inherit;background:var(--ai);color:#fff}
+.savebar label.file{background:transparent;color:#C9D8E6;border:1.5px solid #C9D8E6;display:inline-block}
+.savebar .msg{font-size:.72rem;color:#A9BCCB;flex:1;min-width:120px}
+.import-panel{display:none;margin-bottom:12px;padding:10px 12px;background:#F5F1E8;border:1px solid #D9CDB4;border-radius:8px;font-size:.78rem}
+.import-panel .k{font-weight:700;color:var(--sepia)}
+.linklist{list-style:none}
+.linklist li{border-bottom:1px dotted #C4D0DB;padding:10px 2px}
+.linklist a{color:var(--ai);font-weight:700;text-decoration:none;font-size:.9rem}
+.linklist a:hover{text-decoration:underline}
+.linklist .desc{font-size:.76rem;color:#4f6172;margin-top:2px}
+footer{margin:36px 0 8px;font-size:.7rem;color:#7d8fa0;text-align:center}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  .savebar,button.action{display:none!important}
+  section.card{box-shadow:none;border:1px solid #999;break-inside:avoid;margin:12px 0}
+  textarea,input[type=text]{border:none;border-bottom:1px solid #999;border-radius:0;background:#fff;overflow:hidden}
+  .bmc .cell textarea,.swot-cell textarea{border-bottom:none}
+  .preview{border:1px solid #999}
+  a{color:#000;text-decoration:none}
+  .linklist a::after{content:"（" attr(href) "）";font-weight:400;font-size:.68rem;color:#555}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">CAFÉ MANAGEMENT DESIGN</p>
+  <h1>カフェの<span class="accent">経営デザイン帳</span></h1>
+  <p class="lede">コンセプトワークシートの続きの帳面です。MVV（ミッション・ビジョン・バリュー）→ ビジネスモデルキャンバス → 内閣府の「経営デザインシート」の順に書き進めると、開業前の構想から、何年目かの描き直しまで、同じ一冊で続けられます。前のワークシートで保存したJSONファイルを下の「読み込み」で開くと、コンセプトや強みが引き継がれます。</p>
+  <p style="margin-top:10px">
+    <button class="action ghost" onclick="loadSampleDesign()">記入例（完成例）を読み込む</button>
+    <button class="action ghost" onclick="loadSampleConcept()">第二冊の記入例を引き継いで始める</button>
+  </p>
+  <span class="note" id="sampleMsg" style="display:block"></span>
+</header>
+
+<!-- 070 MVV -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.070</span><h2>MVV — ミッション・ビジョン・バリュー</h2></div>
+  <div class="card-body">
+    <div class="import-panel" id="importPanel"></div>
+    <p class="hint">コンセプトが「店の設計図」なら、MVVは「店の背骨」です。日々の迷い（この依頼を受けるか、この商品を出すか）を判断する物差しになります。かっこいい言葉より、自分が本気で守れる言葉を。</p>
+    <div class="q"><label>ミッション <span class="sub">この店は何のために存在するのか。誰のどんな困りごと・願いに応えるのか</span></label><textarea data-k="mvv_m" placeholder="例）街の日常に、ほっとできる居場所と一杯のコーヒーを届ける"></textarea></div>
+    <div class="q"><label>ビジョン <span class="sub">10年後、店と街はどうなっていたいか。情景が浮かぶ言葉で</span></label><textarea data-k="mvv_v" placeholder="例）10年後も、常連さんと新しい人が自然に混ざり合う、街の交差点のような店であり続ける"></textarea></div>
+    <div class="q"><label>バリュー <span class="sub">日々の判断基準を3つまで。「迷ったらこちらを選ぶ」が書けると強い</span></label><textarea data-k="mvv_b" placeholder="例）1. 目の前の一杯を丁寧に　2. 迷ったら地域に開く方を選ぶ　3. 無理して大きくしない"></textarea></div>
+    <div class="compose"><div class="k">MVVのまとめ（自動）</div><div id="mvvDraft"></div></div>
+  </div>
+</section>
+
+<!-- 080 BMC -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.080</span><h2>ビジネスモデルキャンバス（9つの箱）</h2></div>
+  <div class="card-body">
+    <p class="hint">店の商売のしくみを1枚に。真ん中の「提供価値」から書き始めて、右半分（お客さん側）→左半分（つくる側）の順が書きやすいです。カフェの場合、イベントや豆売りは「収益の流れ」を複線化する大事な箱です。</p>
+    <div class="bmc">
+      <div class="cell" style="grid-area:kp"><h3>パートナー</h3><span class="en">KEY PARTNERS</span><textarea data-k="bmc_kp" placeholder="仕入先、近隣店、作家、地域団体…"></textarea></div>
+      <div class="cell" style="grid-area:ka"><h3>主な活動</h3><span class="en">KEY ACTIVITIES</span><textarea data-k="bmc_ka" placeholder="焙煎、製菓、接客、イベント企画、SNS発信…"></textarea></div>
+      <div class="cell" style="grid-area:kr"><h3>主な資源</h3><span class="en">KEY RESOURCES</span><textarea data-k="bmc_kr" placeholder="焙煎機、技術、店舗、人脈、常連さん…"></textarea></div>
+      <div class="cell vp" style="grid-area:vp"><h3>提供価値</h3><span class="en">VALUE PROPOSITIONS</span><textarea data-k="bmc_vp" placeholder="鮮度の高い一杯／気兼ねなく過ごせる時間／人がつながる場…"></textarea></div>
+      <div class="cell" style="grid-area:cr"><h3>顧客との関係</h3><span class="en">CUSTOMER RELATIONSHIPS</span><textarea data-k="bmc_cr" placeholder="顔と名前を覚える、イベントでの再会、SNSでの日常発信…"></textarea></div>
+      <div class="cell" style="grid-area:ch"><h3>チャネル</h3><span class="en">CHANNELS</span><textarea data-k="bmc_ch" placeholder="店舗、Instagram、Googleマップ、口コミ、街のイベント…"></textarea></div>
+      <div class="cell" style="grid-area:cs"><h3>顧客セグメント</h3><span class="en">CUSTOMER SEGMENTS</span><textarea data-k="bmc_cs" placeholder="近隣の住民・勤め人／イベント参加者／豆の定期購入者…"></textarea></div>
+      <div class="cell money" style="grid-area:cost"><h3>コスト構造</h3><span class="en">COST STRUCTURE</span><textarea data-k="bmc_cost" placeholder="家賃、原材料、光熱費、借入返済…（経営シミュレーション帳の数字と揃える）"></textarea></div>
+      <div class="cell money" style="grid-area:rev"><h3>収益の流れ</h3><span class="en">REVENUE STREAMS</span><textarea data-k="bmc_rev" placeholder="喫茶売上／豆・物販／イベント出店料・参加費／貸切…"></textarea></div>
+    </div>
+  </div>
+</section>
+
+<!-- 090 経営デザインシート -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.090</span><h2>経営デザインシート（内閣府の枠組み）</h2></div>
+  <div class="card-body">
+    <p class="hint">内閣府 知的財産戦略推進事務局が公開している「これまで → これから」の移行を1枚で描く枠組みです（<a href="https://www.kantei.go.jp/jp/singi/titeki2/keiei_design/index.html" target="_blank" rel="noopener">公式のひな型・記載例はこちら</a>）。開業前の方は「これまで」に自分の経歴・修行・準備を書けばそのまま使えます。開業後の方は何年目でも、開業時と今を見比べる棚卸しとして。</p>
+    <div class="q"><label>A. 存在意義（企業理念） <span class="sub">MVVのミッションがそのまま入ります。書き換えてもOK</span></label><textarea data-k="mds_a" rows="2"></textarea></div>
+    <div class="mds-flow">
+      <div class="mds-col past">
+        <h3>B. これまで</h3><span class="sub">開業前の方は「自分の経歴・修行・準備」を資源として</span>
+        <div class="q"><label>使ってきた資源 <span class="sub">技術・設備・人脈・お金・評判</span></label><textarea data-k="mds_b1" placeholder="例）焙煎技術、17席の店舗、常連さん、地域の店主ネットワーク"></textarea></div>
+        <div class="q"><label>価値を生むしくみ <span class="sub">どうやって価値にしてきたか</span></label><textarea data-k="mds_b2" placeholder="例）自家焙煎×手づくりケーキ×月10本のイベントで、来店動機を絶やさない"></textarea></div>
+        <div class="q"><label>提供してきた価値 <span class="sub">誰に・何を</span></label><textarea data-k="mds_b3" placeholder="例）近隣の人に、日常の居場所と人のつながり"></textarea></div>
+      </div>
+      <div class="mds-arrow" aria-hidden="true">→</div>
+      <div class="mds-col future">
+        <h3>C. これから</h3><span class="sub">5〜10年先の在りたい姿から逆算して</span>
+        <div class="q"><label>提供したい価値 <span class="sub">まずここから書くのがコツ</span></label><textarea data-k="mds_c1" placeholder="例）店の中だけでなく、街全体を「居場所」にする仕掛け"></textarea></div>
+        <div class="q"><label>価値を生むしくみ</label><textarea data-k="mds_c2" placeholder="例）店＋街のイベント＋オンラインの豆販売の三本柱"></textarea></div>
+        <div class="q"><label>必要になる資源</label><textarea data-k="mds_c3" placeholder="例）イベント運営の仲間、EC のしくみ、後を任せられる人"></textarea></div>
+      </div>
+    </div>
+    <div class="q" style="margin-top:12px"><label>外部環境の変化 <span class="sub">機会と脅威。SWOTの「機会・脅威」が引き継がれます</span></label><textarea data-k="mds_env" rows="2"></textarea></div>
+    <div class="mds-band">
+      <h3>D. 移行戦略 — これまでとこれからの間を、どう埋めるか</h3>
+      <div class="q" style="margin-top:8px"><label>ギャップと課題 <span class="sub">「これから」に足りないものは何か</span></label><textarea data-k="mds_d1" rows="2" placeholder="例）一人営業のままでは街への展開に手が回らない"></textarea></div>
+      <div class="q"><label>最初の一歩 <span class="sub">今から半年でやること。小さく具体的に</span></label><textarea data-k="mds_d2" rows="2" placeholder="例）イベントの共催者を2人見つける／豆のオンライン販売を試験的に始める"></textarea></div>
+      <div class="q"><label>資源の調達方法 <span class="sub">お金・人・知恵をどう集めるか（補助金・借入・連携など）</span></label><textarea data-k="mds_d3" rows="2" placeholder="例）地域プラットフォームの補助金、商店街との共同事業"></textarea></div>
+    </div>
+  </div>
+</section>
+
+<!-- 100 定点観測 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.100</span><h2>定点観測 — 年に一度の棚卸し</h2></div>
+  <div class="card-body">
+    <p class="hint">年に一度、同じ問いに答えて保存しておく欄です。開業前でも1年目でも10年目でも構いません。毎年の記録を並べると、店の変化がそのまま年輪のように残ります。JSONファイルに日付が入るので、年ごとに別名で保存してください。</p>
+    <div class="q"><label>記入日と何年目か</label><input type="text" data-k="ten_date" placeholder="例）2026年7月・10年目"></div>
+    <div class="q"><label>数字の定点 <span class="sub">客数・客単価・月商の実感値。経営シミュレーション帳の数字と見比べて</span></label><textarea data-k="ten_num" rows="2" placeholder="例）平日◯人・土日◯人、客単価◯円。開業時の想定と比べて…"></textarea></div>
+    <div class="q"><label>お客さんは誰に変わったか <span class="sub">開業時に想定した「誰に」と、いま実際に来ている人</span></label><textarea data-k="ten_who" rows="2"></textarea></div>
+    <div class="q"><label>続けること・やめること・始めること <span class="sub">それぞれ1つずつでいい</span></label><textarea data-k="ten_3" rows="3" placeholder="続ける：&#10;やめる：&#10;始める："></textarea></div>
+    <div class="q"><label>次の10年、この店は何であるべきか</label><textarea data-k="ten_next" rows="2"></textarea></div>
+  </div>
+</section>
+
+<!-- 110 出力 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.110</span><h2>まとめの下書き（自動組み立て）</h2></div>
+  <div class="card-body">
+    <p class="hint">ここまでの記入を1枚のテキストに組み立てます。補助金申請の「事業概要」欄、金融機関への説明、従業員や協力者との共有などに使えます。</p>
+    <div class="preview" id="outAll"></div>
+    <button class="action" onclick="copyOut()">まとめをコピー</button>
+    <p class="note" id="copyNote"></p>
+    <ul class="linklist" style="margin-top:18px">
+      <li><a href="https://www.kantei.go.jp/jp/singi/titeki2/keiei_design/index.html" target="_blank" rel="noopener">内閣府｜経営をデザインする（経営デザインシート）</a><div class="desc">公式のひな型（全社用・事業用・簡易版）、記載要領、活用事例のダウンロード。</div></li>
+      <li><a href="https://j-net21.smrj.go.jp/special/mangadewakaru/hgc8pd0000010juj.html" target="_blank" rel="noopener">J-Net21｜マンガでわかる「経営デザインシート」</a><div class="desc">書き方の流れがいちばんやさしくわかる解説。</div></li>
+      <li><a href="https://yorozu.smrj.go.jp/" target="_blank" rel="noopener">よろず支援拠点</a><div class="desc">書いたシートを持ち込んで、無料で壁打ちしてもらえます。</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer>枠組みは内閣府「経営デザインシート」等を参考にした簡易版です。正式なひな型はリンク先からどうぞ。</footer>
+</div>
+
+<div class="savebar">
+  <div class="inner">
+    <button onclick="saveJSON()">保存（ファイルに書き出し）</button>
+    <label class="file">読み込み<input type="file" id="loadFile" accept=".json" style="display:none"></label>
+    <span class="msg" id="saveMsg">※コンセプトワークシートのJSONも読み込めます</span>
+  </div>
+</div>
+
+<script>
+const v = k => { const el = document.querySelector(`[data-k="${k}"]`); return el ? el.value.trim() : ''; };
+const setIfEmpty = (k, val) => { const el = document.querySelector(`[data-k="${k}"]`); if(el && !el.value.trim() && val) el.value = val; };
+const line = (label, val) => val ? `${label}${val}\n` : '';
+
+function build(){
+  const m=v('mvv_m'), vi=v('mvv_v'), b=v('mvv_b');
+  document.getElementById('mvvDraft').textContent = (m||vi||b)
+    ? `ミッション：${m||'（未記入）'}\nビジョン：${vi||'（未記入）'}\nバリュー：${b||'（未記入）'}`
+    : '3つを書くと、ここにまとまります。';
+  setIfEmpty('mds_a', m);
+
+  let t = '';
+  if(m||vi||b){
+    t += '◆ MVV\n';
+    t += line('ミッション：', m) + line('ビジョン：', vi) + line('バリュー：', b) + '\n';
+  }
+  const bmcKeys = [['提供価値','bmc_vp'],['顧客セグメント','bmc_cs'],['チャネル','bmc_ch'],['顧客との関係','bmc_cr'],['収益の流れ','bmc_rev'],['主な資源','bmc_kr'],['主な活動','bmc_ka'],['パートナー','bmc_kp'],['コスト構造','bmc_cost']];
+  if(bmcKeys.some(([_,k])=>v(k))){
+    t += '◆ ビジネスモデル（9つの箱）\n';
+    bmcKeys.forEach(([label,k])=>{ t += line(`・${label}：`, v(k)); });
+    t += '\n';
+  }
+  if(v('mds_a')||v('mds_b1')||v('mds_c1')||v('mds_d2')){
+    t += '◆ 経営デザイン（これまで → これから）\n';
+    t += line('存在意義：', v('mds_a'));
+    t += line('これまで｜資源：', v('mds_b1'));
+    t += line('これまで｜しくみ：', v('mds_b2'));
+    t += line('これまで｜価値：', v('mds_b3'));
+    t += line('外部環境の変化：', v('mds_env'));
+    t += line('これから｜価値：', v('mds_c1'));
+    t += line('これから｜しくみ：', v('mds_c2'));
+    t += line('これから｜資源：', v('mds_c3'));
+    t += line('課題：', v('mds_d1'));
+    t += line('最初の一歩：', v('mds_d2'));
+    t += line('資源の調達：', v('mds_d3'));
+    t += '\n';
+  }
+  if(v('ten_date')||v('ten_3')||v('ten_next')){
+    t += '◆ 定点観測\n';
+    t += line('記入：', v('ten_date'));
+    t += line('数字の定点：', v('ten_num'));
+    t += line('お客さんの変化：', v('ten_who'));
+    t += line('続ける・やめる・始める：\n', v('ten_3'));
+    t += line('次の10年：', v('ten_next'));
+  }
+  document.getElementById('outAll').textContent = t.trim() || '各欄を書き進めると、ここにまとめの下書きができます。';
+}
+
+function copyOut(){
+  navigator.clipboard.writeText(document.getElementById('outAll').textContent).then(()=>{
+    document.getElementById('copyNote').textContent = 'まとめをコピーしました。';
+  }).catch(()=>{ document.getElementById('copyNote').textContent = 'コピーできない環境のようです。テキストを選択してコピーしてください。'; });
+}
+
+function collect(){
+  const data = {};
+  document.querySelectorAll('[data-k]').forEach(el=>{ data[el.dataset.k] = el.value; });
+  return data;
+}
+function saveJSON(){
+  const blob = new Blob([JSON.stringify({type:'cafe-mgmt-design',saved:new Date().toISOString(),data:collect()},null,1)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `経営デザイン帳_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  document.getElementById('saveMsg').textContent = '書き出しました。年に一度、日付入りで保存すると定点観測の記録になります。';
+}
+
+function loadSampleDesign(){
+  const msg = document.getElementById('sampleMsg');
+  fetch('sample-design.json')
+    .then(r=>{ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(obj=>{
+      const data = obj.data || obj;
+      document.querySelectorAll('[data-k]').forEach(el=>{ if(data[el.dataset.k]!==undefined) el.value = data[el.dataset.k]; });
+      build();
+      msg.textContent = '記入例（架空のモデルケース：家族を養うワンオペ型）を読み込みました。数字はシミュレーション帳の記入例と対応しています。眺めてから、自分の言葉に書き換えてみてください。';
+    })
+    .catch(()=>{ msg.textContent = '記入例を読み込めませんでした。公開サイト上で開いているか確認してください。'; });
+}
+
+function loadSampleConcept(){
+  const msg = document.getElementById('sampleMsg');
+  fetch('sample-concept.json')
+    .then(r=>{ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(obj=>{
+      importConcept(obj.data || obj);
+      build();
+      msg.textContent = '記入例（コンセプトワークシート）を引き継ぎました。空欄の一部が記入例で埋まっています。';
+    })
+    .catch(()=>{ msg.textContent = '記入例を読み込めませんでした。公開サイト上で開いているか確認してください。'; });
+}
+
+function importConcept(data){
+  // コンセプトワークシートからの引き継ぎ
+  setIfEmpty('mvv_m', data.c_final || '');
+  setIfEmpty('bmc_cs', data.c_who || '');
+  setIfEmpty('bmc_vp', data.c_what || '');
+  setIfEmpty('bmc_ch', data.c_how || '');
+  setIfEmpty('mds_b1', data.sw_s || '');
+  const env = [data.sw_o ? `機会：${data.sw_o}` : '', data.sw_t ? `脅威：${data.sw_t}` : ''].filter(Boolean).join('\n');
+  setIfEmpty('mds_env', env);
+  const panel = document.getElementById('importPanel');
+  const items = [];
+  if(data.c_final) items.push(`<span class="k">ひとことコンセプト：</span>${data.c_final}`);
+  if(data.sw_s) items.push(`<span class="k">強み：</span>${data.sw_s}`);
+  if(data.sp1||data.sp2||data.sp3) items.push(`<span class="k">セールスポイント：</span>${[data.sp1,data.sp2,data.sp3].filter(Boolean).join('／')}`);
+  if(items.length){
+    panel.innerHTML = '<div class="k" style="margin-bottom:4px">コンセプトワークシートから引き継ぎました（空欄だけ自動で埋めています）</div>' + items.join('<br>');
+    panel.style.display = 'block';
+  }
+}
+
+document.getElementById('loadFile').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const obj = JSON.parse(reader.result);
+      const data = obj.data || obj;
+      if(obj.type === 'cafe-concept-worksheet'){
+        importConcept(data);
+        document.getElementById('saveMsg').textContent = 'コンセプトワークシートを引き継ぎました。';
+      } else {
+        document.querySelectorAll('[data-k]').forEach(el=>{ if(data[el.dataset.k]!==undefined) el.value = data[el.dataset.k]; });
+        document.getElementById('saveMsg').textContent = '読み込みました。';
+      }
+      build();
+    }catch(err){ document.getElementById('saveMsg').textContent = '読み込めませんでした。保存したJSONファイルか確認してください。'; }
+  };
+  reader.readAsText(f);
+  e.target.value = '';
+});
+
+document.querySelectorAll('[data-k]').forEach(el=>el.addEventListener('input', build));
+
+// 印刷時にテキスト欄を全文表示に広げる
+window.addEventListener('beforeprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.dataset.h = t.style.height||''; t.style.height='auto'; t.style.height=Math.max(t.scrollHeight, 40)+'px'; });
+});
+window.addEventListener('afterprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.style.height = t.dataset.h; });
+});
+build();
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="カフェをはじめる人と続けている人のための無料ツール。経営シミュレーション・コンセプトづくり・経営デザインの三冊を、記入例つきで。岐阜の喫茶店主がつくりました。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="喫茶開業の帳面 三冊">
+<meta property="og:description" content="カフェをはじめる人と続けている人のための無料ツール。経営シミュレーション・コンセプトづくり・経営デザインの三冊を、記入例つきで。岐阜の喫茶店主がつくりました。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe_tool_main/">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe_tool_main/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>喫茶開業の帳面 三冊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F3EF;
+  --ink:#2A2E33;
+  --green:#2F5D4A;
+  --amber:#A87A2E;
+  --ai:#2C4E77;
+  --white:#FDFDFC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);line-height:1.75;
+  background:var(--paper);min-height:100vh;padding:24px 16px 48px;
+}
+.wrap{max-width:680px;margin:0 auto}
+header{padding:24px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--amber);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.6rem,6vw,2.2rem);line-height:1.35}
+.lede{font-size:.86rem;color:#5c6167;margin-top:10px;max-width:56ch}
+.books{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+a.book{
+  display:flex;text-decoration:none;color:var(--ink);background:var(--white);
+  border:1px solid #E2E0D8;border-radius:10px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(42,46,51,.08),0 4px 14px rgba(42,46,51,.06);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+a.book:hover{transform:translateY(-2px);box-shadow:0 3px 6px rgba(42,46,51,.1),0 8px 22px rgba(42,46,51,.1)}
+@media (prefers-reduced-motion:reduce){a.book{transition:none}a.book:hover{transform:none}}
+a.book:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.spine{width:14px;flex-shrink:0}
+.book.b1 .spine{background:var(--green)}
+.book.b2 .spine{background:var(--amber)}
+.book.b3 .spine{background:var(--ai)}
+.book-body{padding:16px 18px}
+.no{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.08em;color:#8a8f95}
+.book h2{font-family:'Shippori Mincho',serif;font-size:1.1rem;margin:2px 0 4px}
+.book.b1 h2{color:var(--green)}
+.book.b2 h2{color:var(--amber)}
+.book.b3 h2{color:var(--ai)}
+.book p{font-size:.8rem;color:#5c6167}
+footer{margin-top:32px;font-size:.72rem;color:#8a8f95}
+footer p{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">CAFÉ PLANNING LEDGERS</p>
+  <h1>喫茶開業の帳面 三冊</h1>
+  <p class="lede">カフェをはじめる人と、続けている人のための道具です。数字 → 言葉 → 未来 の順に書き進めるようにできていますが、どの一冊からでも使えます。入力した内容はこの端末の中だけで扱われ、どこにも送信されません。</p>
+</header>
+<nav class="books" aria-label="三冊の帳面">
+  <a class="book guide" href="guide.html" style="border-style:dashed">
+    <span class="spine" style="background:#8a8f95" aria-hidden="true"></span>
+    <span class="book-body">
+      <span class="no">はじめに</span>
+      <h2 style="color:#4a4f55">三冊の手ほどき</h2>
+      <p>はじめての方はまずこちらから。使い方の流れ、出てくる言葉のやさしい辞書、こまったときのQ&amp;A。</p>
+    </span>
+  </a>
+  <a class="book b1" href="simulation.html">
+    <span class="spine" aria-hidden="true"></span>
+    <span class="book-body">
+      <span class="no">第一冊 — 数字</span>
+      <h2>経営シミュレーション帳</h2>
+      <p>客単価・客数・経費から月商と利益を自動計算。商圏人口の調べ方、資金計画、借入返済、公庫の創業計画書に貼れる「根拠の文章」づくりまで。</p>
+    </span>
+  </a>
+  <a class="book b2" href="concept.html">
+    <span class="spine" aria-hidden="true"></span>
+    <span class="book-body">
+      <span class="no">第二冊 — 言葉</span>
+      <h2>コンセプトワークシート</h2>
+      <p>経歴の棚卸し、創業の動機、SWOT、「誰に・何を・どのように」。書き込むと創業計画書の下書きが自動で組み上がります。</p>
+    </span>
+  </a>
+  <a class="book b3" href="design.html">
+    <span class="spine" aria-hidden="true"></span>
+    <span class="book-body">
+      <span class="no">第三冊 — 未来</span>
+      <h2>経営デザイン帳</h2>
+      <p>MVV、ビジネスモデルキャンバス、内閣府の経営デザインシート、年に一度の定点観測。開業前の構想から何年目の描き直しまで。</p>
+    </span>
+  </a>
+</nav>
+<section style="margin-top:32px;background:var(--white);border:1px solid #E2E0D8;border-radius:10px;padding:18px 20px;box-shadow:0 1px 3px rgba(42,46,51,.08)">
+  <h2 style="font-family:'Shippori Mincho',serif;font-size:1rem;color:var(--ink);border-bottom:2px solid var(--amber);padding-bottom:6px;margin-bottom:10px">このサイトについて</h2>
+  <div style="font-size:.78rem;color:#4a4f55;line-height:1.9">
+    <p style="margin-bottom:8px">この帳面は、岐阜市の喫茶店「喫茶 星時」の店主が、自身の開業（2017年）とその後の営業経験をもとに作った、考えを整理するための道具です。税理士・中小企業診断士等による専門的な助言ではありません。</p>
+    <p style="margin-bottom:8px"><b>大切なおことわり：</b>このツールは融資の可否や経営の成果を保証するものではありません。計算結果や記入例はあくまで目安です。融資の正式な条件は日本政策金融公庫等の窓口で、税務・法務は各専門窓口でご確認ください。入力した内容はお使いの端末内でのみ扱われ、当方に送信・保存されることはありません。</p>
+    <p style="margin-bottom:8px"><b>ご利用について：</b>ご自身の開業準備・学習のためには、どなたでも自由にお使いください。一方、このサイトの内容（ツール・文章・記入例）の転載、再配布、改変しての再公開、教材としての販売など商用での二次利用は、事前にご連絡のうえ許諾を得てください。</p>
+    <p style="color:#8a8f95">© 2026 喫茶 星時（岐阜市）</p>
+  </div>
+</section>
+<footer>
+  <p>・書いた内容はページを閉じると消えます。各帳面の「保存」でファイルに書き出してください。</p>
+  <p>・数値・枠組みは概算とシミュレーションです。正式な条件は日本政策金融公庫等でご確認ください。</p>
+</footer>
+</div>
+</body>
+</html>

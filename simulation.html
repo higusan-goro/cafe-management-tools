@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="客単価・客数・経費から月商と手残りを自動計算。日本政策金融公庫の創業計画書づくりに使える、記入例つきの無料ツール。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="経営シミュレーション帳 | 喫茶開業の帳面">
+<meta property="og:description" content="客単価・客数・経費から月商と手残りを自動計算。日本政策金融公庫の創業計画書づくりに使える、記入例つきの無料ツール。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe_tool_main/simulation.html">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe_tool_main/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>喫茶開業 経営シミュレーション帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F6F2;        /* 帳簿用紙の淡い緑 */
+  --grid:#DCE5DB;
+  --ink:#22384F;          /* 帳簿の青インク */
+  --ink-strong:#16283B;
+  --green:#2F5D4A;        /* 元帳の深緑 */
+  --shu:#C0392B;          /* 朱肉の赤 = 赤字 */
+  --amber:#A87A2E;        /* 珈琲の琥珀 */
+  --white:#FDFEFD;
+  --shadow:0 1px 3px rgba(34,56,79,.08),0 4px 14px rgba(34,56,79,.06);
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);
+  line-height:1.7;
+  padding-bottom:96px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 20px;text-align:left}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--green);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,5.4vw,2.1rem);color:var(--ink-strong);line-height:1.35}
+h1 .accent{color:var(--green)}
+.lede{font-size:.86rem;color:#4c6076;margin-top:10px;max-width:60ch}
+section.card{
+  background:var(--white);border:1px solid #E1E8E0;border-radius:var(--radius);
+  box-shadow:var(--shadow);margin:18px 0;overflow:hidden;
+}
+.card-head{
+  display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px;
+  border-bottom:2px solid var(--green);
+}
+.acct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--amber);letter-spacing:.06em}
+.card-head h2{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--ink-strong)}
+.card-body{padding:16px 18px 20px}
+.hint{font-size:.78rem;color:#5d7186;margin-bottom:12px}
+.hint a{color:var(--green)}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.field{flex:1 1 150px;min-width:140px}
+.field label{display:block;font-size:.75rem;font-weight:700;color:#3a5068;margin-bottom:4px}
+.field .unit{font-weight:400;color:#7b8ea0}
+input[type=number],input[type=text]{
+  width:100%;padding:9px 10px;font-size:1rem;border:1px solid #C6D2C8;border-radius:6px;
+  background:#FCFDFB;color:var(--ink-strong);
+  font-family:'IBM Plex Mono',monospace;font-weight:500;
+}
+input[type=text]{font-family:'Zen Kaku Gothic New',sans-serif}
+input:focus{outline:2px solid var(--green);outline-offset:1px}
+.subhead{font-size:.74rem;font-weight:700;color:var(--amber);letter-spacing:.14em;margin:12px 0 4px}
+.calc-line{
+  margin-top:14px;padding:10px 12px;background:#F4F8F3;border-left:3px solid var(--green);
+  font-size:.82rem;border-radius:0 6px 6px 0;
+}
+.calc-line b{font-family:'IBM Plex Mono',monospace}
+.ledger{width:100%;border-collapse:collapse;margin-top:8px;font-size:.85rem}
+.ledger th{font-size:.72rem;font-weight:700;color:#3a5068;text-align:left;padding:6px 4px;border-bottom:2px solid var(--green)}
+.ledger td{padding:7px 4px;border-bottom:1px dotted #C9D6CB;vertical-align:middle}
+.ledger td.num,.ledger th.num{text-align:right;font-family:'IBM Plex Mono',monospace;font-weight:500;white-space:nowrap}
+.ledger tr.total td{border-top:2px solid var(--ink);border-bottom:3px double var(--ink);font-weight:700;background:#F7FAF6}
+.pos{color:var(--ink-strong)}
+.neg{color:var(--shu);font-weight:700}
+.toggle{display:flex;gap:0;margin-bottom:12px;border:1px solid var(--green);border-radius:6px;overflow:hidden;width:fit-content}
+.toggle button{
+  padding:7px 14px;font-size:.8rem;font-weight:700;border:none;background:var(--white);
+  color:var(--green);cursor:pointer;font-family:inherit;
+}
+.toggle button[aria-pressed=true]{background:var(--green);color:#fff}
+.linkbtns{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+a.gov{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 13px;font-size:.8rem;font-weight:700;
+  color:var(--white);background:var(--ink);border-radius:6px;text-decoration:none;
+}
+a.gov.secondary{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+a.gov:focus-visible,button:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+.linklist{list-style:none}
+.linklist li{border-bottom:1px dotted #C9D6CB;padding:10px 2px}
+.linklist a{color:var(--green);font-weight:700;text-decoration:none;font-size:.9rem}
+.linklist a:hover{text-decoration:underline}
+.linklist .desc{font-size:.76rem;color:#5d7186;margin-top:2px}
+.balance-ok{color:var(--green);font-weight:700}
+.balance-ng{color:var(--shu);font-weight:700}
+/* 判定スタンプ */
+.verdict-area{display:flex;align-items:center;gap:18px;margin-top:16px;flex-wrap:wrap}
+.stamp{
+  width:92px;height:92px;border:3.5px solid var(--shu);border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Shippori Mincho',serif;font-weight:700;color:var(--shu);
+  transform:rotate(-7deg);flex-shrink:0;opacity:.92;
+}
+.stamp.black{border-color:var(--ink-strong);color:var(--ink-strong)}
+.stamp .big{font-size:1.5rem;line-height:1.1}
+.stamp .small{font-size:.6rem;letter-spacing:.1em}
+.bep-bar{margin-top:10px}
+.bep-track{position:relative;height:14px;background:#E4ECE3;border-radius:7px;overflow:visible}
+.bep-fill{height:100%;background:var(--green);border-radius:7px;max-width:100%;transition:width .4s ease}
+@media (prefers-reduced-motion:reduce){.bep-fill{transition:none}}
+.bep-mark{position:absolute;top:-5px;width:2px;height:24px;background:var(--shu)}
+.bep-labels{display:flex;justify-content:space-between;font-size:.7rem;color:#5d7186;margin-top:6px}
+/* 月次バー */
+.months{display:flex;gap:4px;align-items:flex-end;height:120px;margin-top:14px;padding-top:8px;border-top:1px solid var(--grid)}
+.mcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;min-width:0}
+.mbar{width:100%;border-radius:3px 3px 0 0;background:var(--green);min-height:2px}
+.mbar.loss{background:var(--shu)}
+.mlab{font-size:.58rem;color:#5d7186;font-family:'IBM Plex Mono',monospace}
+.mgrid{overflow-x:auto;margin-top:12px}
+.mgrid table{min-width:640px}
+.mgrid input{width:58px;padding:4px 5px;font-size:.8rem}
+button.action{
+  padding:10px 16px;font-size:.85rem;font-weight:700;border:none;border-radius:6px;
+  background:var(--amber);color:#fff;cursor:pointer;font-family:inherit;margin-top:14px;
+}
+button.action.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.note{font-size:.72rem;color:#7b8ea0;margin-top:8px}
+/* 固定サマリー */
+.summary{
+  position:fixed;left:0;right:0;bottom:0;background:var(--ink-strong);color:#fff;
+  box-shadow:0 -3px 12px rgba(0,0,0,.18);z-index:50;
+}
+.summary .inner{max-width:760px;margin:0 auto;display:flex;gap:8px;padding:10px 16px;justify-content:space-between}
+.sitem{text-align:center;flex:1}
+.sitem .k{font-size:.6rem;letter-spacing:.1em;color:#9FB4C6}
+.sitem .v{font-family:'IBM Plex Mono',monospace;font-size:.92rem;font-weight:600}
+.sitem .v.neg{color:#FF9B8E}
+.sbtns{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.sbtns button,.sbtns label.file{
+  padding:7px 10px;font-size:.68rem;font-weight:700;border:none;border-radius:6px;cursor:pointer;
+  font-family:inherit;background:var(--amber);color:#fff;white-space:nowrap;
+}
+.sbtns label.file{background:transparent;color:#C9D8E6;border:1.5px solid #7d93a8;display:inline-block}
+footer{margin:36px 0 8px;font-size:.7rem;color:#7b8ea0;text-align:center}
+textarea.export{width:100%;height:150px;margin-top:10px;font-size:.75rem;font-family:'IBM Plex Mono',monospace;padding:8px;border:1px solid #C6D2C8;border-radius:6px;display:none}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  .summary,.sbtns,button.action,.linkbtns,.toggle{display:none!important}
+  section.card{box-shadow:none;border:1px solid #999;break-inside:avoid;margin:12px 0}
+  .card-head{border-bottom-color:#333}
+  input[type=number],input[type=text]{border:none;border-bottom:1px solid #999;border-radius:0;background:#fff}
+  .calc-line{background:#fff;border:1px solid #ccc;border-left:3px solid #333}
+  a{color:#000;text-decoration:none}
+  .linklist a::after{content:"（" attr(href) "）";font-weight:400;font-size:.68rem;color:#555}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">CAFÉ START-UP LEDGER</p>
+  <h1>喫茶開業 <span class="accent">経営シミュレーション帳</span></h1>
+  <p class="lede">日本政策金融公庫の創業計画書・事業計画書に書き込む数字を、根拠つきで組み立てるための帳簿です。数字を入れると自動で計算され、そのまま計画書に転記できる「根拠の文章」も作られます。</p>
+  <button class="action ghost" style="margin-top:12px" onclick="loadSample('sample.json','記入例（架空のモデルケース）を読み込みました。家族の生活を支える店主が、平日ワンオペ・休日アルバイト1名・客単価1,400円で月商約100万円をつくる計画です。生活費35万円に対する手残りに注目してください。')">記入例を読み込む（架空のモデルケース）</button>
+  <span class="note" id="sampleMsg" style="display:block"></span>
+</header>
+
+<!-- 1 商圏 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.100</span><h2>商圏・立地を調べる</h2></div>
+  <div class="card-body">
+    <p class="hint">半径5km圏などの人口は、総務省統計局の「jSTAT MAP」で無料で調べられます。地図で出店予定地を指定 →「レポート作成」→「リッチレポート」→ 円（半径を指定）で圏内人口が出ます（無料の利用者登録が必要です。登録なしのシンプルレポートでも概数は確認できます）。出てきた数字を下に転記してください。</p>
+    <div class="linkbtns">
+      <a class="gov" href="https://jstatmap.e-stat.go.jp/" target="_blank" rel="noopener">jSTAT MAP を開く（半径圏の人口）</a>
+      <a class="gov secondary" href="https://www.e-stat.go.jp/regional-statistics/ssdsview" target="_blank" rel="noopener">e-Stat 市区町村データ</a>
+    </div>
+    <div class="row">
+      <div class="field" style="flex:2 1 220px"><label>出店予定地（住所・エリア名）</label><input type="text" id="addr" placeholder="例）〇〇市中央町1丁目"></div>
+      <div class="field"><label>調べた半径 <span class="unit">km</span></label><input type="number" id="radius" value="5" min="0" step="0.5"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>半径圏内 人口 <span class="unit">人</span></label><input type="number" id="popRadius" placeholder="jSTAT MAPの値" min="0"></div>
+      <div class="field"><label>半径圏内 世帯数 <span class="unit">世帯</span></label><input type="number" id="hhRadius" placeholder="任意" min="0"></div>
+      <div class="field"><label>市区町村 人口 <span class="unit">人</span></label><input type="number" id="popCity" placeholder="e-Statの値" min="0"></div>
+    </div>
+    <div class="calc-line" id="marketLine">人口を入力すると、1日客数が商圏人口の何％にあたるかをここに表示します。</div>
+  </div>
+</section>
+
+<!-- 2 売上計画 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.200</span><h2>売上計画（月商の組み立て）</h2></div>
+  <div class="card-body">
+    <div class="toggle" role="group" aria-label="客数の入れ方">
+      <button id="modeSeat" aria-pressed="true" onclick="setMode('seat')">席数から計算</button>
+      <button id="modeDirect" aria-pressed="false" onclick="setMode('direct')">1日客数を直接入力</button>
+    </div>
+    <div id="seatInputs">
+      <div class="row">
+        <div class="field" style="max-width:170px"><label>席数 <span class="unit">席</span></label><input type="number" id="seats" value="17" min="1"></div>
+      </div>
+      <p class="subhead">平日</p>
+      <div class="row">
+        <div class="field"><label>満席率 <span class="unit">%</span></label><input type="number" id="occW" value="45" min="0" max="100"></div>
+        <div class="field"><label>回転数 <span class="unit">回/日</span></label><input type="number" id="turnsW" value="3" min="0" step="0.5"></div>
+      </div>
+      <p class="subhead">土日祝</p>
+      <div class="row">
+        <div class="field"><label>満席率 <span class="unit">%</span></label><input type="number" id="occH" value="70" min="0" max="100"></div>
+        <div class="field"><label>回転数 <span class="unit">回/日</span></label><input type="number" id="turnsH" value="3.5" min="0" step="0.5"></div>
+      </div>
+    </div>
+    <div class="row" id="directInputs" style="display:none">
+      <div class="field"><label>平日の1日客数 <span class="unit">人</span></label><input type="number" id="guestsW" value="22" min="0"></div>
+      <div class="field"><label>土日祝の1日客数 <span class="unit">人</span></label><input type="number" id="guestsH" value="40" min="0"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>平日の営業日数 <span class="unit">日/月</span></label><input type="number" id="daysW" value="18" min="0" max="31"></div>
+      <div class="field"><label>土日祝の営業日数 <span class="unit">日/月</span></label><input type="number" id="daysH" value="7" min="0" max="15"></div>
+      <div class="field"><label>客単価 <span class="unit">円</span></label><input type="number" id="price" value="900" min="0" step="10"></div>
+      <div class="field"><label>その他売上（豆・物販等） <span class="unit">円/月</span></label><input type="number" id="otherRev" value="30000" min="0" step="1000"></div>
+    </div>
+    <div class="calc-line" id="revLine"></div>
+  </div>
+</section>
+
+<!-- 3 原価・経費 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.300</span><h2>原価と毎月の経費</h2></div>
+  <div class="card-body">
+    <p class="hint">喫茶・カフェの原価率は25〜35％程度が一つの目安と言われますが、自家焙煎や手づくりケーキ中心なら実感値で調整してください。事業主本人の生活費は経費ではなく「利益から取る」扱いです（個人事業の場合）。</p>
+    <div class="row">
+      <div class="field"><label>原価率 <span class="unit">%</span></label><input type="number" id="cogsRate" value="30" min="0" max="100"></div>
+    </div>
+    <table class="ledger" style="margin-top:14px">
+      <thead><tr><th>経費科目</th><th class="num">月額（円）</th></tr></thead>
+      <tbody id="expBody"></tbody>
+      <tbody>
+        <tr><td>支払利息（借入から自動計算）</td><td class="num" id="autoInterest">0</td></tr>
+        <tr class="total"><td>経費合計（月）</td><td class="num" id="expTotal">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 4 必要資金と調達 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.400</span><h2>必要な資金と調達の方法</h2></div>
+  <div class="card-body">
+    <p class="hint">創業計画書の「7 必要な資金と調達方法」に対応します。左（必要な資金）と右（調達の方法）の合計は一致させるのが原則です。運転資金は「経費＋仕入の2〜3ヶ月分」を目安にすることが多いです。</p>
+    <div class="row">
+      <div class="field"><label>物件取得費（保証金・礼金等）</label><input type="number" class="fund need" id="fundDeposit" value="600000" min="0" step="10000"></div>
+      <div class="field"><label>内装工事費</label><input type="number" class="fund need" id="fundInterior" value="2000000" min="0" step="10000"></div>
+      <div class="field"><label>厨房・焙煎等の設備</label><input type="number" class="fund need" id="fundKitchen" value="1500000" min="0" step="10000"></div>
+      <div class="field"><label>什器・備品・その他</label><input type="number" class="fund need" id="fundMisc" value="400000" min="0" step="10000"></div>
+      <div class="field"><label>運転資金</label><input type="number" class="fund need" id="fundWorking" value="1000000" min="0" step="10000"></div>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <div class="field"><label>自己資金</label><input type="number" class="fund src" id="srcSelf" value="1500000" min="0" step="10000"></div>
+      <div class="field"><label>親族・知人等からの借入</label><input type="number" class="fund src" id="srcFamily" value="0" min="0" step="10000"></div>
+      <div class="field"><label>公庫からの借入（希望額）</label><input type="number" class="fund src" id="srcLoan" value="4000000" min="0" step="10000"></div>
+      <div class="field"><label>その他（補助金等）</label><input type="number" class="fund src" id="srcOther" value="0" min="0" step="10000"></div>
+    </div>
+    <div class="calc-line" id="fundLine"></div>
+  </div>
+</section>
+
+<!-- 5 借入返済 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.500</span><h2>借入の返済シミュレーション</h2></div>
+  <div class="card-body">
+    <p class="hint">元利均等返済（毎月の支払額が一定）で計算します。金利は公庫の窓口・Webで最新の利率をご確認ください。据置期間中は利息のみの支払いです。</p>
+    <div class="row">
+      <div class="field"><label>借入額（調達から自動） <span class="unit">円</span></label><input type="number" id="loanAmount" value="4000000" min="0" step="10000"></div>
+      <div class="field"><label>年利 <span class="unit">%</span></label><input type="number" id="loanRate" value="2.5" min="0" step="0.05"></div>
+      <div class="field"><label>返済期間 <span class="unit">年</span></label><input type="number" id="loanYears" value="7" min="1" max="20"></div>
+      <div class="field"><label>据置期間 <span class="unit">ヶ月</span></label><input type="number" id="loanGrace" value="0" min="0" max="24"></div>
+    </div>
+    <div class="calc-line" id="loanLine"></div>
+  </div>
+</section>
+
+<!-- 6 事業の見通し -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.600</span><h2>事業の見通し（公庫様式 8 のイメージ）</h2></div>
+  <div class="card-body">
+    <p class="hint">創業計画書の「8 事業の見通し（月平均）」に対応します。「軌道に乗った後」は、客数が何％増える想定かを入れてください。</p>
+    <div class="row">
+      <div class="field"><label>軌道後の客数の伸び <span class="unit">%</span></label><input type="number" id="growth" value="20" min="-50" max="200"></div>
+    </div>
+    <table class="ledger" style="margin-top:14px">
+      <thead><tr><th>科目</th><th class="num">創業当初</th><th class="num">軌道に乗った後</th></tr></thead>
+      <tbody id="outlookBody"></tbody>
+    </table>
+    <div class="verdict-area">
+      <div class="stamp" id="stamp"><span class="big">—</span><span class="small">判定</span></div>
+      <div style="flex:1;min-width:220px">
+        <div style="font-size:.8rem;font-weight:700">損益分岐点売上高（月）: <span id="bepVal" style="font-family:'IBM Plex Mono',monospace"></span></div>
+        <div class="bep-bar">
+          <div class="bep-track"><div class="bep-fill" id="bepFill"></div><div class="bep-mark" id="bepMark"></div></div>
+          <div class="bep-labels"><span>0</span><span>赤線＝損益分岐点／緑＝現在の月商</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <div class="field" style="max-width:220px"><label>必要な生活費 <span class="unit">円/月</span></label><input type="number" id="livingCost" value="250000" min="0" step="10000"></div>
+    </div>
+    <div class="calc-line" id="cashLine"></div>
+    <p class="note">公庫の面談で見られるのは「利益から毎月の返済(元金)を払っても、生活費が残るか」です。個人事業では店主の生活費は経費ではなく、この手残りから取ります。</p>
+    <button class="action" onclick="copyBasis()">計画書に貼れる「根拠の文章」をコピー</button>
+    <button class="action ghost" onclick="toggleExport()">全体の計画メモを表示</button>
+    <textarea class="export" id="exportBox" readonly aria-label="計画メモ"></textarea>
+    <p class="note" id="copyNote"></p>
+  </div>
+</section>
+
+<!-- 7 月次12ヶ月 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.700</span><h2>開業からの12ヶ月シミュレーション</h2></div>
+  <div class="card-body">
+    <p class="hint">開業直後は満席にならないもの。各月の「立ち上がり率」（軌道後の売上を100とした割合）を編集すると、月ごとの利益の推移が見えます。公庫の「月別収支計画書」を作るときの下敷きになります。</p>
+    <div class="months" id="monthBars" aria-hidden="true"></div>
+    <div class="mgrid">
+      <table class="ledger" id="monthTable"><thead><tr><th>月</th><th class="num">立上り%</th><th class="num">売上高</th><th class="num">利益</th></tr></thead><tbody id="monthBody"></tbody></table>
+    </div>
+    <div class="calc-line" id="yearLine"></div>
+    <button class="action" onclick="exportCSV()">月次表をCSVで書き出す（Excelで開けます）</button>
+    <p class="note">公庫の「月別収支計画書」の科目に合わせた列（売上高・売上原価・人件費・家賃・支払利息・その他経費・利益・返済・手残り）で書き出します。</p>
+  </div>
+</section>
+
+<!-- 8 リンク集 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.800</span><h2>参考になる公的機関リンク集</h2></div>
+  <div class="card-body">
+    <ul class="linklist">
+      <li><a href="https://www.jfc.go.jp/n/service/dl_kokumin.html" target="_blank" rel="noopener">日本政策金融公庫｜各種書式ダウンロード</a><div class="desc">創業計画書（Excel/PDF）、業種別の記入例、月別収支計画書の様式はここから。</div></li>
+      <li><a href="https://www.jfc.go.jp/n/finance/sougyou/business-plan/" target="_blank" rel="noopener">日本政策金融公庫｜創業計画の書き方</a><div class="desc">書き方の解説と動画。面談前に一度目を通しておくと安心です。</div></li>
+      <li><a href="https://jstatmap.e-stat.go.jp/" target="_blank" rel="noopener">jSTAT MAP（地図で見る統計）</a><div class="desc">住所を指定して半径○km圏内の人口・世帯・年齢構成を無料で集計。商圏分析の基本ツール。</div></li>
+      <li><a href="https://www.e-stat.go.jp/gis" target="_blank" rel="noopener">e-Stat 統計地理情報システム</a><div class="desc">jSTAT MAPの入口と統計データのダウンロード。</div></li>
+      <li><a href="https://www.e-stat.go.jp/regional-statistics/ssdsview" target="_blank" rel="noopener">e-Stat 都道府県・市区町村のすがた</a><div class="desc">市区町村単位の人口・世帯・事業所数など。半径指定が難しいときはこちらの人口を。</div></li>
+      <li><a href="https://resas.go.jp/" target="_blank" rel="noopener">RESAS（地域経済分析システム）</a><div class="desc">人口の将来推計や地域の消費動向をグラフで確認できます。</div></li>
+      <li><a href="https://j-net21.smrj.go.jp/" target="_blank" rel="noopener">J-Net21（中小機構）</a><div class="desc">業種別の開業ガイド「喫茶店・カフェ」あり。経営指標の目安も掲載。</div></li>
+      <li><a href="https://mirasapo-plus.go.jp/" target="_blank" rel="noopener">ミラサポplus（中小企業庁）</a><div class="desc">補助金・支援制度の検索。事業計画づくりの支援情報も。</div></li>
+      <li><a href="https://yorozu.smrj.go.jp/" target="_blank" rel="noopener">よろず支援拠点</a><div class="desc">各都道府県にある無料の経営相談窓口。計画書を見てもらうのに便利です。</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer>数値はすべて概算のシミュレーションです。実際の申込条件・金利は日本政策金融公庫にご確認ください。</footer>
+</div>
+
+<div class="summary" role="status" aria-live="polite">
+  <div class="inner">
+    <div class="sitem"><div class="k">月商</div><div class="v" id="sRev">—</div></div>
+    <div class="sitem"><div class="k">月間利益</div><div class="v" id="sProfit">—</div></div>
+    <div class="sitem"><div class="k">損益分岐点</div><div class="v" id="sBep">—</div></div>
+    <div class="sbtns">
+      <button onclick="saveSim()">保存</button>
+      <label class="file">読込<input type="file" id="loadSim" accept=".json" style="display:none"></label>
+    </div>
+  </div>
+</div>
+
+<script>
+const yen = n => isFinite(n) ? Math.round(n).toLocaleString('ja-JP') + '円' : '—';
+const num = id => { const v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; };
+let mode = 'seat';
+
+const EXPENSES = [
+  ['人件費（アルバイト等。本人分は含めない）','expStaff',0],
+  ['家賃','expRent',80000],
+  ['水道光熱費','expUtil',35000],
+  ['通信費','expComm',8000],
+  ['広告宣伝費','expAd',10000],
+  ['消耗品費','expSupply',15000],
+  ['リース料','expLease',0],
+  ['保険料','expIns',5000],
+  ['減価償却費（任意）','expDep',0],
+  ['その他経費','expOther',20000],
+];
+const expBody = document.getElementById('expBody');
+EXPENSES.forEach(([label,id,def])=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${label}</td><td class="num"><input type="number" id="${id}" value="${def}" min="0" step="1000" style="width:110px;text-align:right"></td>`;
+  expBody.appendChild(tr);
+});
+
+// 月次立ち上がり率(既定)
+const RAMP = [60,70,80,85,90,95,100,100,100,100,100,100];
+const monthBody = document.getElementById('monthBody');
+RAMP.forEach((r,i)=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${i+1}ヶ月目</td><td class="num"><input type="number" id="ramp${i}" value="${r}" min="0" max="150"></td><td class="num" id="mrev${i}"></td><td class="num" id="mpf${i}"></td>`;
+  monthBody.appendChild(tr);
+});
+
+function setMode(m){
+  mode = m;
+  document.getElementById('modeSeat').setAttribute('aria-pressed', m==='seat');
+  document.getElementById('modeDirect').setAttribute('aria-pressed', m==='direct');
+  document.getElementById('seatInputs').style.display = m==='seat' ? 'block' : 'none';
+  document.getElementById('directInputs').style.display = m==='direct' ? 'flex' : 'none';
+  recalc();
+}
+
+function guestCalc(){
+  let gW, gH;
+  if(mode==='seat'){
+    gW = num('seats') * num('occW')/100 * num('turnsW');
+    gH = num('seats') * num('occH')/100 * num('turnsH');
+  } else {
+    gW = num('guestsW'); gH = num('guestsH');
+  }
+  const dW = num('daysW'), dH = num('daysH');
+  return {gW, gH, dW, dH, monthly: gW*dW + gH*dH, days: dW+dH};
+}
+
+function loanCalc(){
+  const P = num('loanAmount'), r = num('loanRate')/100/12, n = num('loanYears')*12, g = num('loanGrace');
+  if(P<=0) return {pmt:0, firstInterest:0, total:0};
+  const firstInterest = P*r;
+  let pmt;
+  if(r===0){ pmt = P/n; } else { pmt = P*r/(1-Math.pow(1+r,-n)); }
+  const total = pmt*n + firstInterest*g;
+  return {pmt, firstInterest, total};
+}
+
+let basisText = '';
+let csvState = null;
+
+function exportCSV(){
+  if(!csvState) return;
+  const s = csvState;
+  const r0 = n => Math.round(n);
+  const rows = [['月','立上り率(%)','売上高','売上原価','粗利益','人件費','家賃','支払利息','その他経費','経費合計','利益','借入返済(元金)','手残り']];
+  let t = {rev:0,cogs:0,gross:0,exp:0,profit:0,pr:0,cash:0};
+  s.mdata.forEach((d,i)=>{
+    const cogs = d.mrev*s.cogsRate, gross = d.mrev-cogs;
+    const cash = d.mprofit + s.dep - s.principal;
+    rows.push([`${i+1}ヶ月目`, r0(d.rate*100), r0(d.mrev), r0(cogs), r0(gross), r0(s.staff), r0(s.rent), r0(s.interest), r0(s.otherExp), r0(s.exp), r0(d.mprofit), r0(s.principal), r0(cash)]);
+    t.rev+=d.mrev; t.cogs+=cogs; t.gross+=gross; t.exp+=s.exp; t.profit+=d.mprofit; t.pr+=s.principal; t.cash+=cash;
+  });
+  rows.push(['初年度合計','', r0(t.rev), r0(t.cogs), r0(t.gross), r0(s.staff*12), r0(s.rent*12), r0(s.interest*12), r0(s.otherExp*12), r0(t.exp), r0(t.profit), r0(t.pr), r0(t.cash)]);
+  const csv = '\uFEFF' + rows.map(r=>r.join(',')).join('\r\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `月別収支_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function recalc(){
+  // 売上
+  const gc = guestCalc(), price = num('price');
+  const foodRev = gc.monthly*price, other = num('otherRev'), rev = foodRev + other;
+  const gAvg = gc.days>0 ? gc.monthly/gc.days : 0;
+  let revExpl;
+  if(mode==='seat'){
+    revExpl = `平日：${num('seats')}席×満席率${num('occW')}%×${num('turnsW')}回転 ＝ <b>${gc.gW.toFixed(1)}人/日</b> × ${gc.dW}日、 土日祝：${num('seats')}席×満席率${num('occH')}%×${num('turnsH')}回転 ＝ <b>${gc.gH.toFixed(1)}人/日</b> × ${gc.dH}日 → 月間延べ<b>${Math.round(gc.monthly).toLocaleString()}人</b> × 客単価${price.toLocaleString()}円 ＝ 飲食売上 <b>${yen(foodRev)}</b>（＋その他 ${yen(other)}）→ 月商 <b>${yen(rev)}</b>`;
+  } else {
+    revExpl = `平日${gc.gW}人×${gc.dW}日 ＋ 土日祝${gc.gH}人×${gc.dH}日 ＝ 月間延べ<b>${Math.round(gc.monthly).toLocaleString()}人</b> × 客単価${price.toLocaleString()}円 ＝ 飲食売上 <b>${yen(foodRev)}</b>（＋その他 ${yen(other)}）→ 月商 <b>${yen(rev)}</b>`;
+  }
+  document.getElementById('revLine').innerHTML = revExpl;
+
+  // 商圏
+  const pop = num('popRadius') || num('popCity');
+  const src = num('popRadius') ? `半径${num('radius')}km圏 人口${num('popRadius').toLocaleString()}人` : (num('popCity') ? `市区町村人口${num('popCity').toLocaleString()}人` : '');
+  document.getElementById('marketLine').innerHTML = pop>0
+    ? `${src} に対して、1日平均客数 ${gAvg.toFixed(1)}人 は <b>約${(gAvg/pop*100).toFixed(3)}%</b>。月間延べ客数は約<b>${Math.round(gc.monthly).toLocaleString()}人</b>です。`
+    : '人口を入力すると、1日客数が商圏人口の何％にあたるかをここに表示します。';
+
+  // 借入
+  const loan = loanCalc();
+  document.getElementById('loanLine').innerHTML =
+    `毎月返済額（元利均等）: <b>${yen(loan.pmt)}</b> ／ 初月の利息分: <b>${yen(loan.firstInterest)}</b> ／ 総支払額の目安: <b>${yen(loan.total)}</b>`;
+  document.getElementById('autoInterest').textContent = Math.round(loan.firstInterest).toLocaleString();
+
+  // 経費
+  let exp = loan.firstInterest;
+  let staff=0, rent=0;
+  EXPENSES.forEach(([_,id])=>{ const v=num(id); exp+=v; if(id==='expStaff')staff=v; if(id==='expRent')rent=v; });
+  document.getElementById('expTotal').textContent = Math.round(exp).toLocaleString();
+
+  // 原価・利益
+  const cogsRate = num('cogsRate')/100;
+  const cogs = rev*cogsRate;
+  const profit = rev - cogs - exp;
+
+  // 資金計画
+  const need = num('fundDeposit')+num('fundInterior')+num('fundKitchen')+num('fundMisc')+num('fundWorking');
+  const srcTotal = num('srcSelf')+num('srcFamily')+num('srcLoan')+num('srcOther');
+  const diff = srcTotal-need;
+  document.getElementById('fundLine').innerHTML =
+    `必要な資金 <b>${yen(need)}</b> ／ 調達合計 <b>${yen(srcTotal)}</b> → ` +
+    (diff===0 ? `<span class="balance-ok">一致しています</span>` :
+     `<span class="balance-ng">${diff>0?'調達が':'資金が'} ${yen(Math.abs(diff))} ${diff>0?'多い':'不足'}</span>`);
+
+  // 見通し(創業当初/軌道後)
+  const growth = 1 + num('growth')/100;
+  const rev2 = foodRev*growth + other;
+  const cogs2 = rev2*cogsRate;
+  const otherExp = exp - staff - rent - loan.firstInterest;
+  const profit2 = rev2 - cogs2 - exp;
+  const rows = [
+    ['売上高', rev, rev2],
+    ['売上原価', cogs, cogs2],
+    ['人件費', staff, staff],
+    ['家賃', rent, rent],
+    ['支払利息', loan.firstInterest, loan.firstInterest],
+    ['その他経費', otherExp, otherExp],
+  ];
+  let html = rows.map(([k,a,b])=>`<tr><td>${k}</td><td class="num">${yen(a)}</td><td class="num">${yen(b)}</td></tr>`).join('');
+  html += `<tr class="total"><td>利益</td><td class="num ${profit<0?'neg':'pos'}">${yen(profit)}</td><td class="num ${profit2<0?'neg':'pos'}">${yen(profit2)}</td></tr>`;
+  document.getElementById('outlookBody').innerHTML = html;
+
+  // 損益分岐点: 固定費 ÷ (1-原価率)
+  const bep = cogsRate<1 ? exp/(1-cogsRate) : Infinity;
+  document.getElementById('bepVal').textContent = yen(bep);
+  const maxScale = Math.max(rev, bep)*1.15 || 1;
+  document.getElementById('bepFill').style.width = (rev/maxScale*100)+'%';
+  document.getElementById('bepMark').style.left = (bep/maxScale*100)+'%';
+
+  // スタンプ
+  const stamp = document.getElementById('stamp');
+  if(profit>=0){ stamp.className='stamp black'; stamp.innerHTML='<span class="big">黒字</span><span class="small">創業当初</span>'; }
+  else { stamp.className='stamp'; stamp.innerHTML='<span class="big">赤字</span><span class="small">創業当初</span>'; }
+
+  // 返済後の手残り
+  const dep = num('expDep');
+  const principal = Math.max(0, loan.pmt - loan.firstInterest);
+  const cash = profit + dep - principal;
+  const living = num('livingCost');
+  const shortage = cash - living;
+  document.getElementById('cashLine').innerHTML =
+    `利益 <b>${yen(profit)}</b>${dep>0?` ＋ 減価償却 <b>${yen(dep)}</b>`:''} − 元金返済 <b>${yen(principal)}</b> ＝ 手残り <b class="${cash<0?'neg':''}">${yen(cash)}</b> → 生活費 ${yen(living)} に対して ` +
+    (shortage>=0 ? `<span class="balance-ok">足りています（余裕 ${yen(shortage)}）</span>`
+                 : `<span class="balance-ng">不足 ${yen(Math.abs(shortage))}</span>`);
+
+  // 月次
+  const bars = document.getElementById('monthBars');
+  bars.innerHTML='';
+  let yearRev=0, yearProfit=0, maxAbs=1;
+  const mdata = RAMP.map((_,i)=>{
+    const rate = num('ramp'+i)/100;
+    const mrev = (foodRev*growth + other) * rate;
+    const mprofit = mrev - mrev*cogsRate - exp;
+    yearRev+=mrev; yearProfit+=mprofit;
+    maxAbs = Math.max(maxAbs, Math.abs(mprofit));
+    return {rate, mrev, mprofit};
+  });
+  csvState = {mdata, cogsRate, staff, rent, interest: loan.firstInterest, otherExp, exp, principal, dep};
+  mdata.forEach((d,i)=>{
+    document.getElementById('mrev'+i).textContent = Math.round(d.mrev).toLocaleString();
+    const pf = document.getElementById('mpf'+i);
+    pf.textContent = Math.round(d.mprofit).toLocaleString();
+    pf.className = 'num ' + (d.mprofit<0?'neg':'pos');
+    const col = document.createElement('div'); col.className='mcol';
+    const bar = document.createElement('div'); bar.className='mbar'+(d.mprofit<0?' loss':'');
+    bar.style.height = Math.max(2, Math.abs(d.mprofit)/maxAbs*95)+'px';
+    const lab = document.createElement('div'); lab.className='mlab'; lab.textContent=(i+1);
+    col.appendChild(bar); col.appendChild(lab); bars.appendChild(col);
+  });
+  document.getElementById('yearLine').innerHTML =
+    `初年度（12ヶ月）の売上見込み: <b>${yen(yearRev)}</b> ／ 利益見込み: <b class="${yearProfit<0?'neg':''}">${yen(yearProfit)}</b>`;
+
+  // サマリー
+  document.getElementById('sRev').textContent = yen(rev);
+  const sp = document.getElementById('sProfit');
+  sp.textContent = yen(profit); sp.className = 'v'+(profit<0?' neg':'');
+  document.getElementById('sBep').textContent = yen(bep);
+
+  // 根拠テキスト
+  const gtxt = mode==='seat'
+    ? `平日は席数${num('seats')}席×満席率${num('occW')}%×${num('turnsW')}回転≒${gc.gW.toFixed(0)}人/日（月${gc.dW}日）、土日祝は満席率${num('occH')}%×${num('turnsH')}回転≒${gc.gH.toFixed(0)}人/日（月${gc.dH}日）`
+    : `平日${gc.gW}人/日（月${gc.dW}日）、土日祝${gc.gH}人/日（月${gc.dH}日）`;
+  basisText =
+`【売上高の根拠】${gtxt}と見込み、月間延べ客数は約${Math.round(gc.monthly).toLocaleString()}人。客単価${price.toLocaleString()}円をかけて飲食売上${yen(foodRev)}。物販等${yen(other)}を加え、月商${yen(rev)}と見込む。
+【軌道に乗った後】客数が${num('growth')}%増加すると想定し、月商${yen(rev2)}を見込む。
+【原価】原価率${num('cogsRate')}%（自家焙煎・手づくりを前提とした実績値/目安）。
+【経費】月額合計${yen(exp)}（うち家賃${yen(rent)}、人件費${yen(staff)}、支払利息${yen(loan.firstInterest)}）。
+【利益】創業当初 ${yen(profit)}／軌道後 ${yen(profit2)}。損益分岐点売上高は月${yen(bep)}。
+【返済後の手残り】利益${yen(profit)}${dep>0?`＋減価償却${yen(dep)}`:''}から元金返済${yen(principal)}を差し引いた手残りは月${yen(cash)}。生活費${yen(living)}に対して${shortage>=0?`${yen(shortage)}の余裕がある`:`${yen(Math.abs(shortage))}不足するため、売上・経費・借入条件の見直しが必要`}。`;
+
+  document.getElementById('exportBox').value =
+`◆喫茶開業シミュレーション（${new Date().toLocaleDateString('ja-JP')}）
+■立地: ${document.getElementById('addr').value || '未入力'}${src ? '（'+src+'）' : ''}
+${basisText}
+■必要資金 ${yen(need)}（設備${yen(need-num('fundWorking'))}／運転${yen(num('fundWorking'))}）
+■調達 ${yen(srcTotal)}（自己資金${yen(num('srcSelf'))}／公庫借入${yen(num('srcLoan'))}／その他${yen(num('srcFamily')+num('srcOther'))}）
+■借入返済 月${yen(loan.pmt)}（${num('loanYears')}年・年利${num('loanRate')}%）
+■手残り 月${yen(cash)}（生活費${yen(living)}に対し ${shortage>=0?'余裕'+yen(shortage):'不足'+yen(Math.abs(shortage))}）
+■初年度見込み 売上${yen(yearRev)}／利益${yen(yearProfit)}`;
+}
+
+function copyBasis(){
+  navigator.clipboard.writeText(basisText).then(()=>{
+    document.getElementById('copyNote').textContent = '根拠の文章をコピーしました。創業計画書の「事業の見通し」欄などに貼り付けてください。';
+  }).catch(()=>{
+    toggleExport(true);
+    document.getElementById('copyNote').textContent = 'コピーできない環境のようです。下のメモから手動で選択してください。';
+  });
+}
+function toggleExport(force){
+  const box = document.getElementById('exportBox');
+  box.style.display = (force===true || box.style.display!=='block') ? 'block' : 'none';
+}
+
+// 借入額は調達欄と連動（片方を編集したらもう片方へ）
+document.getElementById('srcLoan').addEventListener('input', e=>{ document.getElementById('loanAmount').value = e.target.value; });
+document.getElementById('loanAmount').addEventListener('input', e=>{ document.getElementById('srcLoan').value = e.target.value; });
+
+document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+
+// 保存・読み込み（JSON）
+function saveSim(){
+  const data = {};
+  document.querySelectorAll('input[id]').forEach(el=>{ if(el.type!=='file') data[el.id] = el.value; });
+  const blob = new Blob([JSON.stringify({type:'cafe-simulation',saved:new Date().toISOString(),mode:mode,data:data},null,1)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `経営シミュレーション_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  document.getElementById('copyNote').textContent = '入力内容をファイルに書き出しました。次回は「読込」でこのファイルを開けば続きから使えます。';
+}
+function applySim(obj){
+  if(!obj || obj.type !== 'cafe-simulation') throw new Error('type');
+  const data = obj.data || {};
+  document.querySelectorAll('input[id]').forEach(el=>{ if(el.type!=='file' && data[el.id]!==undefined) el.value = data[el.id]; });
+  setMode(obj.mode === 'direct' ? 'direct' : 'seat');
+}
+document.getElementById('loadSim').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      applySim(JSON.parse(reader.result));
+      document.getElementById('copyNote').textContent = '読み込みました。';
+    }catch(err){
+      document.getElementById('copyNote').textContent = '読み込めませんでした。このページの「保存」で書き出したJSONファイルか確認してください。';
+    }
+  };
+  reader.readAsText(f);
+  e.target.value = '';
+});
+
+function loadSample(file, okMsg){
+  const msg = document.getElementById('sampleMsg');
+  fetch(file)
+    .then(r=>{ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(obj=>{
+      applySim(obj);
+      msg.textContent = okMsg;
+    })
+    .catch(()=>{
+      msg.textContent = '記入例を読み込めませんでした。公開サイト上で開いているか確認してください（手元に保存したHTMLの場合は、記入例のJSONを「読込」ボタンから開けます）。';
+    });
+}
+
+recalc();
+</script>
+</body>
+</html>
