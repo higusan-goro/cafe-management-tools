@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="マンダラチャートと5つの問いで、自分の大切なもの・価値観を掘り下げる無料ワークシート。書いた言葉はMVVづくりの材料になります。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="別冊 じぶんを深める帳面 | 喫茶開業の帳面">
+<meta property="og:description" content="マンダラチャートと5つの問いで、自分の大切なもの・価値観を掘り下げる無料ワークシート。書いた言葉はMVVづくりの材料になります。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe-management-tools/reflection.html">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe-management-tools/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>別冊 じぶんを深める帳面</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F3F1;
+  --grid:#EAE0DC;
+  --ink:#3B2F2C;
+  --ink-strong:#291F1D;
+  --akane:#9D4A3F;       /* 茜 = 心 */
+  --green:#2F5D4A;
+  --amber:#A87A2E;
+  --ai:#2C4E77;
+  --white:#FDFCFB;
+  --shadow:0 1px 3px rgba(59,47,44,.08),0 4px 14px rgba(59,47,44,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);line-height:1.8;
+  background:var(--paper);
+  background-image:radial-gradient(var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  padding-bottom:84px;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 18px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--akane);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,5.2vw,2.1rem);color:var(--ink-strong);line-height:1.35}
+h1 .accent{color:var(--akane)}
+.lede{font-size:.86rem;color:#6a5a55;margin-top:10px;max-width:60ch}
+a.back{font-size:.8rem;color:var(--akane);font-weight:700;text-decoration:none}
+a.back:hover{text-decoration:underline}
+section.card{background:var(--white);border:1px solid #EBE1DC;border-radius:10px;box-shadow:var(--shadow);margin:18px 0;overflow:hidden}
+.card-head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px;border-bottom:2px solid var(--akane)}
+.acct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--amber);letter-spacing:.06em}
+.card-head h2{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--ink-strong)}
+.card-body{padding:16px 18px 20px}
+.hint{font-size:.78rem;color:#6a5a55;margin-bottom:12px}
+.q{margin-bottom:14px}
+.q label{display:block;font-size:.8rem;font-weight:700;color:#4d3f3a;margin-bottom:4px}
+.q .sub{font-weight:400;color:#8d7d76;font-size:.72rem}
+textarea,input[type=text]{
+  width:100%;padding:9px 10px;font-size:.92rem;border:1px solid #D8CBC4;border-radius:6px;
+  background:#FCFAF8;color:var(--ink-strong);font-family:inherit;line-height:1.65;
+}
+textarea{min-height:56px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--akane);outline-offset:1px}
+/* マンダラ */
+.mandala{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:680px){.mandala{grid-template-columns:1fr}}
+.block{border:1.5px solid #C9B6AE;border-radius:8px;padding:6px;background:#FCFAF8;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.block.center{border-color:var(--akane);border-width:2px;background:#FBF3F1}
+.block .cell{min-height:52px}
+.block textarea{min-height:52px;padding:5px 6px;font-size:.76rem;border-radius:5px;resize:none;line-height:1.45}
+.block .mid{display:flex;align-items:center;justify-content:center;text-align:center;font-size:.78rem;font-weight:700;
+  background:#F3E4E0;border:1px dashed var(--akane);border-radius:5px;color:var(--akane);padding:4px;word-break:break-all;min-height:52px}
+.block.center .mid{background:var(--akane);color:#fff;border:none}
+.block-label{grid-column:1/-1;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#8d7d76;letter-spacing:.08em;padding:0 2px 2px}
+.compose{margin-top:12px;padding:12px 14px;background:#F7EDEA;border-left:3px solid var(--akane);border-radius:0 6px 6px 0;font-size:.85rem}
+.compose .k{font-size:.72rem;font-weight:700;color:var(--akane);letter-spacing:.1em;margin-bottom:4px}
+.preview{white-space:pre-wrap;background:#FCFAF8;border:1px dashed #C9B6AE;border-radius:6px;padding:12px;font-size:.83rem;margin-top:8px;min-height:60px}
+button.action{padding:10px 16px;font-size:.85rem;font-weight:700;border:none;border-radius:6px;background:var(--akane);color:#fff;cursor:pointer;font-family:inherit;margin-top:10px;margin-right:8px}
+button.action.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+button:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
+.note{font-size:.72rem;color:#8d7d76;margin-top:8px}
+.savebar{position:fixed;left:0;right:0;bottom:0;background:var(--ink-strong);z-index:50;box-shadow:0 -3px 12px rgba(0,0,0,.18)}
+.savebar .inner{max-width:820px;margin:0 auto;display:flex;gap:8px;padding:10px 16px;align-items:center;flex-wrap:wrap}
+.savebar button,.savebar label.file{padding:8px 14px;font-size:.78rem;font-weight:700;border:none;border-radius:6px;cursor:pointer;font-family:inherit;background:var(--akane);color:#fff}
+.savebar label.file{background:transparent;color:#E4CFC8;border:1.5px solid #E4CFC8;display:inline-block}
+.savebar .msg{font-size:.72rem;color:#C7B2AA;flex:1;min-width:120px}
+footer{margin:36px 0 8px;font-size:.7rem;color:#8d7d76;text-align:center}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  .savebar,button.action{display:none!important}
+  section.card{box-shadow:none;border:1px solid #999;break-inside:avoid;margin:12px 0}
+  textarea,input[type=text]{border:none;border-bottom:1px solid #999;border-radius:0;background:#fff;overflow:hidden}
+  .block textarea{border:1px solid #ccc}
+  .preview{border:1px solid #999}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">SELF REFLECTION LEDGER</p>
+  <h1>別冊 <span class="accent">じぶんを深める帳面</span></h1>
+  <p class="lede">三冊の手前に置く、いちばん静かな帳面です。お店の計画の根っこには、あなた自身の「大切なもの」があります。５つの問いとマンダラチャートで、それを言葉にしていきます。正解はありません。全部のマスを埋める必要もありません。書いた言葉は、第三冊のミッション・ビジョン・バリューの材料になります。</p>
+  <p style="margin-top:10px"><a class="back" href="index.html">← 三冊の目次にもどる</a></p>
+  <p style="margin-top:10px"><button class="action ghost" onclick="loadSample()">記入例を読み込む（架空のモデルケース）</button></p>
+  <span class="note" id="sampleMsg" style="display:block"></span>
+</header>
+
+<!-- 001 ウォームアップ -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.001</span><h2>ウォームアップ — ５つの問い</h2></div>
+  <div class="card-body">
+    <p class="hint">いきなり「あなたの価値観は？」と聞かれても書けないものです。かわりに、思い出せる場面から入ります。短くて構いません。思い浮かんだ順で。</p>
+    <div class="q"><label>① 忘れられない瞬間 <span class="sub">仕事でも暮らしでも。心が動いた場面をひとつ</span></label><textarea data-k="w1"></textarea></div>
+    <div class="q"><label>② 時間を忘れてしまうこと <span class="sub">気づいたら没頭していること</span></label><textarea data-k="w2"></textarea></div>
+    <div class="q"><label>③ どうしても腹が立つこと <span class="sub">怒りは、大切なものが踏まれたサイン。裏返すと価値観が見えます</span></label><textarea data-k="w3"></textarea></div>
+    <div class="q"><label>④ 憧れの人・店と、その理由 <span class="sub">有名でなくていい。あの人の何に惹かれるのか</span></label><textarea data-k="w4"></textarea></div>
+    <div class="q"><label>⑤ 絶対にやりたくないこと <span class="sub">「こうはなりたくない」も、立派な羅針盤です</span></label><textarea data-k="w5"></textarea></div>
+  </div>
+</section>
+
+<!-- 002 マンダラ -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.002</span><h2>マンダラチャート — 真ん中から広げる</h2></div>
+  <div class="card-body">
+    <p class="hint">まず<b>真ん中のブロック</b>から。中心に問い（例：「どんな店主でありたいか」「私にとって大切なもの」）を書き、まわり8マスに浮かんだ言葉を置きます。書いた言葉は、まわりの8ブロックの中心に自動で流れるので、気になった言葉だけさらに8マスで広げてください。<b>空欄が残って当たり前</b>の道具です。</p>
+    <div class="mandala" id="mandala"></div>
+  </div>
+</section>
+
+<!-- 003 選別 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.003</span><h2>ことばの選別 — ３つだけ選ぶ</h2></div>
+  <div class="card-body">
+    <p class="hint">書いたマスの中から、「これだけは譲れない」という言葉を3つだけ書き写してください。選ぶという行為そのものが、価値観の輪郭になります。</p>
+    <div class="q"><label>大切なことば ①</label><input type="text" data-k="p1"><label style="margin-top:6px">なぜ大切か <span class="sub">一行で</span></label><input type="text" data-k="p1w"></div>
+    <div class="q"><label>大切なことば ②</label><input type="text" data-k="p2"><label style="margin-top:6px">なぜ大切か</label><input type="text" data-k="p2w"></div>
+    <div class="q"><label>大切なことば ③</label><input type="text" data-k="p3"><label style="margin-top:6px">なぜ大切か</label><input type="text" data-k="p3w"></div>
+  </div>
+</section>
+
+<!-- 004 橋渡し -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.004</span><h2>MVVへの橋渡し（自動組み立て）</h2></div>
+  <div class="card-body">
+    <p class="hint">ここまでの言葉を「MVVの材料メモ」に組み立てます。コピーして、第三冊（経営デザイン帳）のミッション・ビジョン・バリュー欄を書くときに、横に置いて眺めてください。材料であって完成品ではありません——最後の一文は、あなたの言葉で。</p>
+    <div class="preview" id="outBridge"></div>
+    <button class="action" onclick="copyOut()">材料メモをコピー</button>
+    <a class="back" href="design.html" style="display:inline-block;margin-left:6px">→ 第三冊をひらく</a>
+    <p class="note" id="copyNote"></p>
+  </div>
+</section>
+
+<footer>別冊 じぶんを深める帳面 ／ 書いた内容はこの端末の中だけで扱われます。保存を忘れずに。</footer>
+</div>
+
+<div class="savebar">
+  <div class="inner">
+    <button onclick="saveJSON()">保存（ファイルに書き出し）</button>
+    <label class="file">読み込み<input type="file" id="loadFile" accept=".json" style="display:none"></label>
+    <span class="msg" id="saveMsg">※ページを閉じると内容は消えます</span>
+  </div>
+</div>
+
+<script>
+// マンダラ生成: ブロック配置 [1,2,3 / 4,C,5 / 6,7,8]、セル配置も同順
+const POS = ['1','2','3','4','C','5','6','7','8'];
+const mandala = document.getElementById('mandala');
+POS.forEach(bp=>{
+  const block = document.createElement('div');
+  block.className = 'block' + (bp==='C' ? ' center' : '');
+  const label = document.createElement('div');
+  label.className = 'block-label';
+  label.textContent = bp==='C' ? 'CENTER' : 'BLOCK ' + bp;
+  block.appendChild(label);
+  POS.forEach(cp=>{
+    if(bp==='C'){
+      if(cp==='C'){
+        const t = document.createElement('textarea');
+        t.dataset.k = 'theme'; t.placeholder = '中心の問い';
+        t.className = ''; t.setAttribute('aria-label','中心の問い');
+        const wrap = document.createElement('div'); wrap.className='cell';
+        t.style.background='#FBF3F1'; t.style.border='2px solid #9D4A3F'; t.style.fontWeight='700';
+        wrap.appendChild(t); block.appendChild(wrap);
+      } else {
+        const t = document.createElement('textarea');
+        t.dataset.k = 'e'+cp; t.placeholder = '';
+        t.setAttribute('aria-label','要素'+cp);
+        const wrap = document.createElement('div'); wrap.className='cell';
+        wrap.appendChild(t); block.appendChild(wrap);
+      }
+    } else {
+      if(cp==='C'){
+        const mid = document.createElement('div');
+        mid.className = 'mid'; mid.id = 'mid'+bp; mid.textContent = '—';
+        block.appendChild(mid);
+      } else {
+        const t = document.createElement('textarea');
+        t.dataset.k = 'd'+bp+'_'+cp;
+        t.setAttribute('aria-label','ブロック'+bp+' マス'+cp);
+        const wrap = document.createElement('div'); wrap.className='cell';
+        wrap.appendChild(t); block.appendChild(wrap);
+      }
+    }
+  });
+  mandala.appendChild(block);
+});
+
+const v = k => { const el = document.querySelector(`[data-k="${k}"]`); return el ? el.value.trim() : ''; };
+const line = (label, val) => val ? `${label}${val}\n` : '';
+
+function build(){
+  // 要素→展開ブロック中心へ同期
+  ['1','2','3','4','5','6','7','8'].forEach(i=>{
+    document.getElementById('mid'+i).textContent = v('e'+i) || '—';
+  });
+  // 橋渡しメモ
+  let t = '';
+  if(v('theme')) t += `【中心に置いた問い】\n${v('theme')}\n\n`;
+  const els = ['1','2','3','4','5','6','7','8'].map(i=>v('e'+i)).filter(Boolean);
+  if(els.length) t += `【広がった言葉】\n${els.join('／')}\n\n`;
+  const picks = [['p1','p1w'],['p2','p2w'],['p3','p3w']].filter(([p])=>v(p));
+  if(picks.length){
+    t += `【選んだ3つ（バリューの種）】\n`;
+    picks.forEach(([p,w],i)=>{ t += `${i+1}. ${v(p)}${v(w)?`（${v(w)}）`:''}\n`; });
+    t += '\n';
+  }
+  if(v('w3')) t += `【腹が立つこと＝裏返しの価値観（ミッションの種）】\n${v('w3')}\n\n`;
+  if(v('w4')) t += `【憧れ＝ありたい姿（ビジョンの種）】\n${v('w4')}\n\n`;
+  if(v('w5')) t += `【やらないと決めること（バリューの種）】\n${v('w5')}\n\n`;
+  if(v('w1')||v('w2')){
+    t += `【心が動く場面】\n`;
+    t += line('・', v('w1')) + line('・', v('w2'));
+  }
+  document.getElementById('outBridge').textContent =
+    t.trim() || '問いとマンダラを書き進めると、ここにMVVの材料メモが組み上がります。';
+}
+
+function copyOut(){
+  navigator.clipboard.writeText(document.getElementById('outBridge').textContent).then(()=>{
+    document.getElementById('copyNote').textContent = '材料メモをコピーしました。第三冊のMVV欄の横に置いて、自分の言葉で仕上げてください。';
+  }).catch(()=>{ document.getElementById('copyNote').textContent = 'コピーできない環境のようです。テキストを選択してコピーしてください。'; });
+}
+
+function collect(){
+  const data = {};
+  document.querySelectorAll('[data-k]').forEach(el=>{ data[el.dataset.k] = el.value; });
+  return data;
+}
+function saveJSON(){
+  const blob = new Blob([JSON.stringify({type:'cafe-self-worksheet',saved:new Date().toISOString(),data:collect()},null,1)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `じぶんを深める帳面_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  document.getElementById('saveMsg').textContent = '書き出しました。掘り直したくなったら「読み込み」で続きから。';
+}
+function applyData(data){
+  document.querySelectorAll('[data-k]').forEach(el=>{ if(data[el.dataset.k]!==undefined) el.value = data[el.dataset.k]; });
+  build();
+}
+document.getElementById('loadFile').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const obj = JSON.parse(reader.result);
+      applyData(obj.data || obj);
+      document.getElementById('saveMsg').textContent = '読み込みました。';
+    }catch(err){ document.getElementById('saveMsg').textContent = '読み込めませんでした。このページで保存したJSONか確認してください。'; }
+  };
+  reader.readAsText(f);
+  e.target.value = '';
+});
+function loadSample(){
+  const msg = document.getElementById('sampleMsg');
+  fetch('sample-self.json')
+    .then(r=>{ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(obj=>{
+      applyData(obj.data || obj);
+      msg.textContent = '記入例（架空のモデルケース）を読み込みました。マスが途中までしか埋まっていないのは、わざとです。全部埋めなくていい、という見本でもあります。';
+    })
+    .catch(()=>{ msg.textContent = '記入例を読み込めませんでした。公開サイト上で開いているか確認してください。'; });
+}
+
+window.addEventListener('beforeprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.dataset.h = t.style.height||''; t.style.height='auto'; t.style.height=Math.max(t.scrollHeight, 40)+'px'; });
+});
+window.addEventListener('afterprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.style.height = t.dataset.h; });
+});
+
+document.addEventListener('input', e=>{ if(e.target.dataset && e.target.dataset.k !== undefined) build(); });
+build();
+</script>
+</body>
+</html>
