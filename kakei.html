@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="毎月の収入と支出から家計の流れをざっくり眺める、おまけの一冊。精密な家計設計ではなく、感触をつかむための遊び道具です。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="喫茶開業の帳面 三冊">
+<meta property="og:title" content="別冊 家計の帳面（おまけ）| 喫茶開業の帳面">
+<meta property="og:description" content="毎月の収入と支出から家計の流れをざっくり眺める、おまけの一冊。精密な家計設計ではなく、感触をつかむための遊び道具です。">
+<meta property="og:url" content="https://higusan-goro.github.io/cafe-management-tools/kakei.html">
+<meta property="og:image" content="https://higusan-goro.github.io/cafe-management-tools/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>別冊 家計の帳面（おまけ）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F2F6;
+  --grid:#E1DFE9;
+  --ink:#2E2B3A;
+  --ink-strong:#1F1D29;
+  --shion:#5B4A73;       /* 紫苑 = 暮らし */
+  --green:#2F5D4A;
+  --amber:#A87A2E;
+  --shu:#C0392B;
+  --white:#FDFDFE;
+  --shadow:0 1px 3px rgba(46,43,58,.08),0 4px 14px rgba(46,43,58,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);line-height:1.8;
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px);
+  background-size:100% 28px;
+  padding-bottom:84px;
+}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 18px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--shion);font-weight:700;margin-bottom:6px}
+h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,5.2vw,2.1rem);color:var(--ink-strong);line-height:1.35}
+h1 .accent{color:var(--shion)}
+.lede{font-size:.86rem;color:#5b566b;margin-top:10px;max-width:60ch}
+a.back{font-size:.8rem;color:var(--shion);font-weight:700;text-decoration:none}
+a.back:hover{text-decoration:underline}
+section.card{background:var(--white);border:1px solid #E4E1EB;border-radius:10px;box-shadow:var(--shadow);margin:18px 0;overflow:hidden}
+.card-head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px;border-bottom:2px solid var(--shion)}
+.acct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--amber);letter-spacing:.06em}
+.card-head h2{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--ink-strong)}
+.card-body{padding:16px 18px 20px}
+.hint{font-size:.78rem;color:#5b566b;margin-bottom:12px}
+.hint a{color:var(--shion)}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.field{flex:1 1 150px;min-width:140px}
+.field label{display:block;font-size:.75rem;font-weight:700;color:#3d3950;margin-bottom:4px}
+.field .unit{font-weight:400;color:#8a8699}
+input[type=number],input[type=text],textarea{
+  width:100%;padding:9px 10px;font-size:.95rem;border:1px solid #CBC6D8;border-radius:6px;
+  background:#FCFCFD;color:var(--ink-strong);
+}
+input[type=number]{font-family:'IBM Plex Mono',monospace;font-weight:500}
+textarea{font-family:inherit;line-height:1.65;min-height:56px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--shion);outline-offset:1px}
+.toggle{display:flex;margin-bottom:14px;border:1px solid var(--shion);border-radius:6px;overflow:hidden;width:fit-content}
+.toggle button{padding:8px 14px;font-size:.8rem;font-weight:700;border:none;background:var(--white);color:var(--shion);cursor:pointer;font-family:inherit}
+.toggle button[aria-pressed=true]{background:var(--shion);color:#fff}
+.calc-line{margin-top:14px;padding:10px 12px;background:#F2EFF7;border-left:3px solid var(--shion);font-size:.84rem;border-radius:0 6px 6px 0}
+.calc-line b{font-family:'IBM Plex Mono',monospace}
+.pos{color:var(--ink-strong)}
+.neg{color:var(--shu);font-weight:700}
+.ok{color:var(--green);font-weight:700}
+table.ledger{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:8px}
+table.ledger th{font-size:.72rem;font-weight:700;color:#3d3950;text-align:left;padding:6px 4px;border-bottom:2px solid var(--shion)}
+table.ledger td{padding:6px 4px;border-bottom:1px dotted #CBC6D8}
+table.ledger td.num,table.ledger th.num{text-align:right;font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+table.ledger input{width:110px;text-align:right;padding:6px 8px;font-size:.85rem}
+/* 10年バー */
+.years{display:flex;gap:5px;align-items:flex-end;height:130px;margin-top:14px;padding-top:8px;border-top:1px solid var(--grid)}
+.ycol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;min-width:0}
+.ybar{width:100%;border-radius:3px 3px 0 0;background:var(--shion);min-height:2px}
+.ybar.loss{background:var(--shu)}
+.ylab{font-size:.58rem;color:#8a8699;font-family:'IBM Plex Mono',monospace}
+button.action{padding:10px 16px;font-size:.85rem;font-weight:700;border:none;border-radius:6px;background:var(--shion);color:#fff;cursor:pointer;font-family:inherit;margin-top:12px;margin-right:8px}
+button.action.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+button:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+.note{font-size:.72rem;color:#8a8699;margin-top:8px}
+.savebar{position:fixed;left:0;right:0;bottom:0;background:var(--ink-strong);z-index:50;box-shadow:0 -3px 12px rgba(0,0,0,.18)}
+.savebar .inner{max-width:780px;margin:0 auto;display:flex;gap:8px;padding:10px 16px;align-items:center;flex-wrap:wrap}
+.savebar .sitem{text-align:center;flex:1;min-width:90px}
+.savebar .k{font-size:.6rem;letter-spacing:.1em;color:#A79FC0}
+.savebar .v{font-family:'IBM Plex Mono',monospace;font-size:.9rem;font-weight:600;color:#fff}
+.savebar .v.neg{color:#FF9B8E}
+.savebar button,.savebar label.file{padding:8px 12px;font-size:.72rem;font-weight:700;border:none;border-radius:6px;cursor:pointer;font-family:inherit;background:var(--amber);color:#fff;white-space:nowrap}
+.savebar label.file{background:transparent;color:#D8D2E6;border:1.5px solid #8a86a8;display:inline-block}
+footer{margin:36px 0 8px;font-size:.7rem;color:#8a8699;text-align:center}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  .savebar,button.action,.toggle{display:none!important}
+  section.card{box-shadow:none;border:1px solid #999;break-inside:avoid;margin:12px 0}
+  input,textarea{border:none;border-bottom:1px solid #999;border-radius:0;background:#fff;overflow:hidden}
+  .calc-line{background:#fff;border:1px solid #ccc;border-left:3px solid #333}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">HOUSEHOLD LEDGER</p>
+  <h1>別冊 <span class="accent">家計の帳面</span><span style="font-size:.55em;color:#8a8699">（おまけ）</span></h1>
+  <p class="lede">お店の帳面の隣に置く、おまけの一冊です。毎月の収入と支出から「家計の手残り」を出し、10年先までのざっくりした曲線を眺めます。<b>これは家計の設計図ではありません。</b>流れの感触をつかむための遊び道具で、見えていないものがたくさんあります（下のおことわりをどうぞ）。個人事業主の方は第一冊の「手残り」から、お勤めの方は給与の手取りから始められます。入力した内容はこの端末の中だけで扱われます。</p>
+  <div style="margin-top:12px;padding:10px 14px;background:#FBF6EC;border:1px solid #E3D3AE;border-radius:8px;font-size:.78rem;color:#5b566b">
+    <b style="color:#8a6d1f">この帳面が見て「いない」もの：</b>正確な税額や社会保険料（ここでは自分で見積もった額を置くだけです）／児童手当などの給付／昇給・転職・収入の変化／貯蓄の利息や運用／物価の上昇。つまり、<b>世帯のお金の全体像はここには映りません。</b>数字が良くても悪くても、この帳面だけを根拠に大きな判断（借入・住宅購入・退職など）をしないでください。正確な話は、税務署・年金事務所・ファイナンシャルプランナーなど、それぞれの窓口へ。</div>
+  <p style="margin-top:10px"><a class="back" href="index.html">← 三冊の目次にもどる</a></p>
+  <p style="margin-top:10px"><button class="action ghost" onclick="loadSample()">記入例を読み込む（架空のモデルケース）</button></p>
+  <span class="note" id="sampleMsg" style="display:block"></span>
+</header>
+
+<!-- 001 収入 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.001</span><h2>毎月の収入</h2></div>
+  <div class="card-body">
+    <div class="toggle" role="group" aria-label="働き方">
+      <button id="modeBiz" aria-pressed="true" onclick="setMode('biz')">個人事業主（店の手残りから）</button>
+      <button id="modeSalary" aria-pressed="false" onclick="setMode('salary')">会社員・アルバイト（給与から）</button>
+    </div>
+    <div id="bizInputs">
+      <p class="hint">第一冊で計算した「手残り」をそのまま持ってきてください。ひとつ大事な注意——<b>個人事業主の手残りには、所得税・住民税・国民健康保険・国民年金がまだ含まれていません。</b>ここで先に「税と社会保険の備え」として取り分けておくのが、この帳面のいちばんの仕事です。金額は前年の確定申告の実績が一番確かですが、分からなければ手残りの2割前後を仮置きして、あとで直してください。</p>
+      <div class="row">
+        <div class="field"><label>店の手残り <span class="unit">円/月</span></label><input type="number" data-k="bizCash" value="0" min="0" step="10000"></div>
+        <div class="field"><label>税・社会保険の備え <span class="unit">円/月</span></label><input type="number" data-k="bizTax" value="0" min="0" step="5000"></div>
+      </div>
+    </div>
+    <div id="salaryInputs" style="display:none">
+      <p class="hint">給与明細の「手取り」（振込額）で入れてください。ボーナスがある方は年間の手取り額を入れると、月割りで足されます。アルバイト・パートで月によって変わる方は、少なめの月に寄せておくのが安全です。</p>
+      <div class="row">
+        <div class="field"><label>本人の手取り <span class="unit">円/月</span></label><input type="number" data-k="salMain" value="0" min="0" step="10000"></div>
+        <div class="field"><label>ボーナス手取り <span class="unit">円/年</span></label><input type="number" data-k="salBonus" value="0" min="0" step="10000"></div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>配偶者・家族の収入 <span class="unit">円/月</span></label><input type="number" data-k="incSpouse" value="0" min="0" step="10000"></div>
+      <div class="field"><label>その他の収入 <span class="unit">円/月</span></label><input type="number" data-k="incOther" value="0" min="0" step="5000"></div>
+    </div>
+    <div class="calc-line" id="incomeLine"></div>
+  </div>
+</section>
+
+<!-- 002 毎月の支出 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.002</span><h2>毎月の支出</h2></div>
+  <div class="card-body">
+    <p class="hint">正確でなくて大丈夫。通帳やカードの明細を眺めながら「だいたいこれくらい」で。空欄（0円）の項目があっても構いません。</p>
+    <table class="ledger">
+      <thead><tr><th>項目</th><th class="num">月額（円）</th></tr></thead>
+      <tbody id="expBody"></tbody>
+      <tbody><tr style="font-weight:700;background:#F7F5FA"><td>支出合計（月）</td><td class="num" id="expTotal">0</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 003 特別費 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.003</span><h2>年に一度の支出（特別費）</h2></div>
+  <div class="card-body">
+    <p class="hint">家計が狂う一番の原因は、毎月の支出ではなく「たまにドンと来る出費」です。年間の見込みを書いておくと、月割りにして手残りから先に引いておけます。</p>
+    <table class="ledger">
+      <thead><tr><th>項目</th><th class="num">年額（円）</th></tr></thead>
+      <tbody id="spBody"></tbody>
+      <tbody><tr style="font-weight:700;background:#F7F5FA"><td>特別費合計（年）→ 月割り</td><td class="num" id="spTotal">0</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 004 手残り -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.004</span><h2>家計の手残り</h2></div>
+  <div class="card-body">
+    <div class="calc-line" id="cashLine"></div>
+    <p class="note">手残りがマイナスでも、慌てなくて大丈夫。まずは「どこで漏れているか」が見えたことが収穫です。特別費の月割りを忘れていた、というのが一番よくある発見です。</p>
+  </div>
+</section>
+
+<!-- 005 10年曲線 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.005</span><h2>ざっくり10年曲線</h2></div>
+  <div class="card-body">
+    <p class="hint">今の貯蓄と毎月の手残りが続いたら、10年でどうなるか。途中の「大きな出費の山」（車の買い替え、入学、リフォームなど）も3つまで置けます。利息・昇給・給付・物価は一切入れていない、あくまで素の曲線です。10年後の数字は予測ではなく「今のままなら」という仮定の絵として眺めてください。</p>
+    <div class="row">
+      <div class="field"><label>今の貯蓄 <span class="unit">円</span></label><input type="number" data-k="sav0" value="0" min="0" step="100000"></div>
+    </div>
+    <table class="ledger" style="margin-top:12px">
+      <thead><tr><th>何年後</th><th class="num">金額（円）</th><th>なんの出費か</th></tr></thead>
+      <tbody>
+        <tr><td><input type="number" data-k="b1y" min="1" max="10" style="width:64px"></td><td class="num"><input type="number" data-k="b1a" min="0" step="50000"></td><td><input type="text" data-k="b1n" placeholder="例）車の買い替え"></td></tr>
+        <tr><td><input type="number" data-k="b2y" min="1" max="10" style="width:64px"></td><td class="num"><input type="number" data-k="b2a" min="0" step="50000"></td><td><input type="text" data-k="b2n" placeholder="例）入学"></td></tr>
+        <tr><td><input type="number" data-k="b3y" min="1" max="10" style="width:64px"></td><td class="num"><input type="number" data-k="b3a" min="0" step="50000"></td><td><input type="text" data-k="b3n"></td></tr>
+      </tbody>
+    </table>
+    <div class="years" id="yearBars" aria-hidden="true"></div>
+    <div class="calc-line" id="futureLine"></div>
+  </div>
+</section>
+
+<!-- 006 定点観測 -->
+<section class="card">
+  <div class="card-head"><span class="acct">No.006</span><h2>定点観測 — 年に一度の家計の棚卸し</h2></div>
+  <div class="card-body">
+    <p class="hint">お店の帳面と同じで、年に一度、同じ問いに答えて日付入りで保存しておく欄です。数字よりも「お金との付き合い方」を言葉で残します。</p>
+    <div class="q" style="margin-bottom:12px"><label style="display:block;font-size:.8rem;font-weight:700;margin-bottom:4px">記入日</label><input type="text" data-k="t_date" placeholder="例）2026年7月"></div>
+    <div class="q" style="margin-bottom:12px"><label style="display:block;font-size:.8rem;font-weight:700;margin-bottom:4px">今年の家計をひとことで</label><textarea data-k="t_feel"></textarea></div>
+    <div class="q" style="margin-bottom:12px"><label style="display:block;font-size:.8rem;font-weight:700;margin-bottom:4px">お金の使い方で、続けること・やめること・始めること</label><textarea data-k="t_3" rows="3" placeholder="続ける：&#10;やめる：&#10;始める："></textarea></div>
+    <div class="q"><label style="display:block;font-size:.8rem;font-weight:700;margin-bottom:4px">来年の自分へひとこと</label><textarea data-k="t_next"></textarea></div>
+  </div>
+</section>
+
+<footer>別冊 家計の帳面（おまけ）／ 概算の遊び道具であり、家計や資産の設計を助言するものではありません。税・保険・年金の正確な金額は確定申告・各制度の窓口でご確認ください。</footer>
+</div>
+
+<div class="savebar">
+  <div class="inner">
+    <div class="sitem"><div class="k">月の手残り</div><div class="v" id="sCash">—</div></div>
+    <div class="sitem"><div class="k">10年後の貯蓄</div><div class="v" id="sSav">—</div></div>
+    <button onclick="saveJSON()">保存</button>
+    <label class="file">読込<input type="file" id="loadFile" accept=".json" style="display:none"></label>
+  </div>
+</div>
+
+<script>
+const yen = n => isFinite(n) ? Math.round(n).toLocaleString('ja-JP') + '円' : '—';
+const v = k => { const el = document.querySelector(`[data-k="${k}"]`); if(!el) return 0; const x = parseFloat(el.value); return isNaN(x) ? 0 : x; };
+const vt = k => { const el = document.querySelector(`[data-k="${k}"]`); return el ? el.value.trim() : ''; };
+let mode = 'biz';
+
+const EXPENSES = [
+  ['住居費（家賃・住宅ローン）','eHome',0],['水道光熱費','eUtil',0],['通信費','eComm',0],
+  ['食費','eFood',0],['日用品','eDaily',0],['保険（月払い）','eIns',0],
+  ['車・交通費','eCar',0],['教育・こども','eEdu',0],['医療・健康','eMed',0],
+  ['おこづかい・趣味','eHobby',0],['サブスク・会費','eSub',0],['その他','eEtc',0],
+];
+const SPECIAL = [
+  ['税金（車・固定資産など）','sTax',0],['保険（年払い）','sIns',0],
+  ['帰省・旅行','sTravel',0],['冠婚葬祭・急な出費','sEvent',0],['家電・家具の買い替え','sGoods',0],
+];
+document.getElementById('expBody').innerHTML = EXPENSES.map(([l,k])=>
+  `<tr><td>${l}</td><td class="num"><input type="number" data-k="${k}" value="0" min="0" step="1000"></td></tr>`).join('');
+document.getElementById('spBody').innerHTML = SPECIAL.map(([l,k])=>
+  `<tr><td>${l}</td><td class="num"><input type="number" data-k="${k}" value="0" min="0" step="5000"></td></tr>`).join('');
+
+function setMode(m){
+  mode = m;
+  document.getElementById('modeBiz').setAttribute('aria-pressed', m==='biz');
+  document.getElementById('modeSalary').setAttribute('aria-pressed', m==='salary');
+  document.getElementById('bizInputs').style.display = m==='biz' ? 'block' : 'none';
+  document.getElementById('salaryInputs').style.display = m==='salary' ? 'block' : 'none';
+  recalc();
+}
+
+function recalc(){
+  // 収入
+  let base, expl;
+  if(mode==='biz'){
+    base = v('bizCash') - v('bizTax');
+    expl = `店の手残り ${yen(v('bizCash'))} − 税・社会保険の備え ${yen(v('bizTax'))}`;
+  } else {
+    base = v('salMain') + v('salBonus')/12;
+    expl = `手取り ${yen(v('salMain'))}${v('salBonus')>0?` ＋ ボーナス月割り ${yen(v('salBonus')/12)}`:''}`;
+  }
+  const income = base + v('incSpouse') + v('incOther');
+  document.getElementById('incomeLine').innerHTML =
+    `${expl}${v('incSpouse')>0?` ＋ 家族 ${yen(v('incSpouse'))}`:''}${v('incOther')>0?` ＋ その他 ${yen(v('incOther'))}`:''} ＝ 使えるお金 <b>${yen(income)}</b>/月`;
+
+  // 支出
+  const E = EXPENSES.reduce((a,[_,k])=>a+v(k),0);
+  document.getElementById('expTotal').textContent = Math.round(E).toLocaleString();
+  const S = SPECIAL.reduce((a,[_,k])=>a+v(k),0);
+  document.getElementById('spTotal').textContent = `${Math.round(S).toLocaleString()} → 月${Math.round(S/12).toLocaleString()}`;
+
+  // 手残り
+  const cash = income - E - S/12;
+  const rate = income>0 ? cash/income*100 : 0;
+  document.getElementById('cashLine').innerHTML =
+    `使えるお金 <b>${yen(income)}</b> − 毎月の支出 <b>${yen(E)}</b> − 特別費の月割り <b>${yen(S/12)}</b> ＝ 家計の手残り <b class="${cash<0?'neg':'ok'}">${yen(cash)}</b>/月（貯蓄率 ${rate.toFixed(1)}%）`;
+
+  // 10年曲線
+  let sav = v('sav0');
+  const bumps = {};
+  [['b1y','b1a'],['b2y','b2a'],['b3y','b3a']].forEach(([y,a])=>{
+    const yy = Math.round(v(y)); if(yy>=1 && yy<=10) bumps[yy] = (bumps[yy]||0) + v(a);
+  });
+  const series = [];
+  for(let y=1;y<=10;y++){
+    sav += cash*12;
+    if(bumps[y]) sav -= bumps[y];
+    series.push(sav);
+  }
+  const bars = document.getElementById('yearBars');
+  bars.innerHTML = '';
+  const maxAbs = Math.max(1, ...series.map(Math.abs));
+  series.forEach((s,i)=>{
+    const col = document.createElement('div'); col.className='ycol';
+    const bar = document.createElement('div'); bar.className='ybar'+(s<0?' loss':'');
+    bar.style.height = Math.max(2, Math.abs(s)/maxAbs*105)+'px';
+    const lab = document.createElement('div'); lab.className='ylab'; lab.textContent=(i+1);
+    col.appendChild(bar); col.appendChild(lab); bars.appendChild(col);
+  });
+  const firstNeg = series.findIndex(s=>s<0);
+  document.getElementById('futureLine').innerHTML =
+    `10年後の貯蓄見込み: <b class="${series[9]<0?'neg':''}">${yen(series[9])}</b>` +
+    (firstNeg>=0 ? ` ／ <span class="neg">${firstNeg+1}年後に貯蓄が底をつく計算です。</span>手残りか出費の山を見直してみてください。` : '');
+
+  document.getElementById('sCash').textContent = yen(cash);
+  document.getElementById('sCash').className = 'v'+(cash<0?' neg':'');
+  document.getElementById('sSav').textContent = yen(series[9]);
+  document.getElementById('sSav').className = 'v'+(series[9]<0?' neg':'');
+}
+
+function collect(){
+  const data = {};
+  document.querySelectorAll('[data-k]').forEach(el=>{ data[el.dataset.k] = el.value; });
+  return data;
+}
+function saveJSON(){
+  const blob = new Blob([JSON.stringify({type:'cafe-kakei',saved:new Date().toISOString(),mode:mode,data:collect()},null,1)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `家計の帳面_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function applyData(obj){
+  const data = obj.data || obj;
+  document.querySelectorAll('[data-k]').forEach(el=>{ if(data[el.dataset.k]!==undefined) el.value = data[el.dataset.k]; });
+  setMode(obj.mode === 'salary' ? 'salary' : 'biz');
+}
+document.getElementById('loadFile').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const obj = JSON.parse(reader.result);
+      if(obj.type !== 'cafe-kakei') throw new Error('type');
+      applyData(obj);
+    }catch(err){ document.getElementById('sampleMsg').textContent = '読み込めませんでした。このページで保存したJSONか確認してください。'; }
+  };
+  reader.readAsText(f);
+  e.target.value = '';
+});
+function loadSample(){
+  const msg = document.getElementById('sampleMsg');
+  fetch('sample-kakei.json')
+    .then(r=>{ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(obj=>{
+      applyData(obj);
+      msg.textContent = '記入例（架空のモデルケース）を読み込みました。店の手残り41万円の店主でも、税の備えと暮らしを引くと、家計の手残りは月1万円台。この「見えてくる感じ」が、この帳面の役目です。';
+    })
+    .catch(()=>{ msg.textContent = '記入例を読み込めませんでした。公開サイト上で開いているか確認してください。'; });
+}
+
+window.addEventListener('beforeprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.dataset.h = t.style.height||''; t.style.height='auto'; t.style.height=Math.max(t.scrollHeight, 40)+'px'; });
+});
+window.addEventListener('afterprint', ()=>{
+  document.querySelectorAll('textarea').forEach(t=>{ t.style.height = t.dataset.h; });
+});
+document.addEventListener('input', e=>{ if(e.target.dataset && e.target.dataset.k !== undefined) recalc(); });
+recalc();
+</script>
+</body>
+</html>
